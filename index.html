@@ -9,1191 +9,740 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInScale {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    .fade-in {
-      animation: fadeIn 0.6s ease-out;
-    }
-    .fade-in-scale {
-      animation: fadeInScale 0.5s ease-out;
-    }
-    .gradient-bg {
-      background: linear-gradient(135deg, #065f46 0%, #10b981 50%, #6ee7b7 100%);
-    }
-    .gradient-bg-subtle {
-      background: linear-gradient(135deg, #047857 0%, #10b981 50%, #34d399 100%);
-    }
-    .gradient-bg-interventions {
-      background: linear-gradient(135deg, #047857 0%, #10b981 50%, #34d399 100%);
-    }
-    .pattern-overlay {
-      background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
-    }
-    .card-hover {
-      transition: all 0.3s ease;
-    }
-    .card-hover:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
-    .glass {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    .glass-tinted {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    .btn-hover {
-      transition: all 0.3s ease;
-    }
-    .btn-hover:hover {
-      transform: scale(1.05);
-    }
-    
-    /* Custom scrollbar for sidebar */
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 8px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.4);
-    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeInScale { from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)} }
+    @keyframes tabFadeIn { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
+    .fade-in{animation:fadeIn 0.6s ease-out}
+    .fade-in-scale{animation:fadeInScale 0.5s ease-out}
+    .tab-content-anim{animation:tabFadeIn 0.25s ease-out}
+    body{font-family:'Source Sans 3',sans-serif}
+    h1,h2,h3{font-family:'Merriweather',serif}
+    .gradient-bg{background:linear-gradient(135deg,#065f46 0%,#10b981 50%,#6ee7b7 100%)}
+    .gradient-bg-subtle{background:linear-gradient(135deg,#047857 0%,#10b981 50%,#34d399 100%)}
+    .gradient-bg-interventions{background:linear-gradient(135deg,#047857 0%,#10b981 50%,#34d399 100%)}
+    .pattern-overlay{background-image:url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')}
+    .card-hover{transition:all 0.3s ease}
+    .card-hover:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,0.15)}
+    .glass{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.3)}
+    .glass-tinted{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2)}
+    .btn-hover{transition:all 0.3s ease}
+    .btn-hover:hover{transform:scale(1.05)}
+    .custom-scrollbar::-webkit-scrollbar{width:8px}
+    .custom-scrollbar::-webkit-scrollbar-track{background:rgba(255,255,255,0.1);border-radius:4px}
+    .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.3);border-radius:4px}
+
+    /* Tab buttons */
+    .tab-btn{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;font-weight:700;font-size:0.9rem;font-family:'Source Sans 3',sans-serif;letter-spacing:0.01em;transition:all 0.2s ease;border:2px solid transparent;cursor:pointer}
+
+    /* Study Details: active=green, inactive=gray */
+    .tab-study-active{background:#059669;color:white;border-color:#059669;box-shadow:0 4px 12px rgba(5,150,105,0.35)}
+    .tab-study-inactive{background:#f3f4f6;color:#6b7280;border-color:#e5e7eb}
+    .tab-study-inactive:hover{background:#e5e7eb;color:#374151}
+
+    /* Educator Insights: ALWAYS amber-tinted to stand out — brighter when active */
+    .tab-insights-active{background:#f59e0b;color:white;border-color:#f59e0b;box-shadow:0 4px 12px rgba(245,158,11,0.40)}
+    .tab-insights-inactive{background:#fef3c7;color:#92400e;border-color:#fcd34d}
+    .tab-insights-inactive:hover{background:#fde68a;color:#78350f}
   </style>
 </head>
 <body>
-  <div id="root"></div>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect } = React;
 
-  <script type="text/babel">
-    const { useState, useEffect } = React;
+const interventions = [
+  {
+    id: 36836006,
+    title: "Tablet-Based Math App for Early Grade Students",
+    study: "Pitchford, N. J., Chigeda, A., & Hubber, P. J. (2019). Interactive apps prevent gender discrepancies in early-grade mathematics in a low-income country in sub-Sahara Africa. Developmental Science, 22, e12864.",
+    studyLink: "https://doi.org/10.1111/desc.12864",
+    description: "Students learn foundational mathematics through interactive apps on individual touchscreen tablets with headphones, guided by a virtual teacher in the local language working through game-like activities at their own pace.",
+    whatItDoes: "Students learn foundational mathematics through interactive apps delivered on individual touchscreen tablets with headphones. A virtual teacher provides instructions and demonstrations in the local language while students work through game-like activities at their own pace. The app covers 28 mathematics topics aligned with the early primary curriculum, provides immediate feedback on every interaction, and awards certificates when students successfully complete topics.",
+    howItWasUsed: "Students used the onebillion math apps in a dedicated learning centre at their school. A classroom teacher facilitated the sessions by providing technical support and monitoring student progress. Each child completed approximately eighteen 30-minute sessions over a 14-month period. On days when the learning centre was unavailable, students received regular classroom instruction instead.",
+    whoItWasTestedWith: "The study included 256 first-grade students (approximately ages 5–7) from 14 primary schools across seven education districts in Malawi, a low-income country in sub-Saharan Africa. Of these students, 149 received the app intervention and 107 continued with regular classroom instruction.",
+    whatWasMeasured: "Mathematics achievement was assessed using the Early Grade Mathematics Assessment (EGMA), a standardized measure that evaluates number identification, quantity discrimination, number patterns, word problems, addition, and subtraction. Students were tested at baseline and again 14 months later.",
+    howWellItWorked: "Students who used the math app showed slightly greater gains in mathematics than those who received only standard classroom instruction. The improvement was modest, with an estimated effect size of 0.09 standard deviations.",
+    studyNote: null,
+    effectSize: "+0.09 SD",
+    country: "Malawi",
+    educatorInsights: {
+      evidence: "A tablet-based math app produced a small improvement in early mathematics skills (+0.09 SD) compared with regular classroom instruction. Notably, this gain occurred with only about nine hours of total app use on average across the 14-month study period.",
+      implementationSweetSpot: "The program works best when each student uses an individual tablet with headphones, allowing children to progress at their own pace. The app delivers the instruction while a teacher facilitates sessions by managing logistics and monitoring students, with minimal direct teaching required. It appears most effective when introduced at the start of primary school, before learning gaps emerge. Sessions can be scheduled flexibly, and regular classroom instruction can continue on days when the technology is not available.",
+      whyItMatters: "Providing individualized instruction can be difficult in resource-constrained classrooms where one teacher may serve many students. The app creates a structured learning environment that gives every child personalized, curriculum-aligned practice with immediate feedback, something that may be challenging for a single teacher to provide consistently.",
+      practicalAdvantage: "During app sessions, teachers are freed from direct instruction and can instead focus on monitoring progress, managing the classroom, and supporting students who need additional help. The app requires minimal training to implement and is designed for young children to use independently.",
+      consideration: "These results come from schools with very large class sizes and limited teacher capacity. Effects may differ in higher-resource settings where baseline instruction is stronger. Implementation may also depend on reliable access to hardware, device maintenance, and scheduling time for students to use the learning center."
+    },
+    tags: { gradeLevel: ["Elementary School"], subject: ["Mathematics"], deliveryMode: ["Computer/Software"], instructionalApproach: ["Adaptive/Personalized"], country: ["Malawi"] }
+  },
+  {
+    id: 36834488,
+    title: "Digital Math Practice Platform for Third-Grade Students",
+    study: "Christopoulos, A., Kajasilta, H., Salakoski, T., & Laakso, M.-J. (2020). Limits and virtues of educational technology in elementary school mathematics. Journal of Educational Technology Systems, 49(1), 59-81.",
+    studyLink: "https://doi.org/10.1177/0047239520908838",
+    description: "Students practice mathematics using a curriculum-aligned digital platform with automatic grading, immediate feedback, and a teacher dashboard showing real-time student progress and AI-flagged misconceptions.",
+    whatItDoes: "Students practice mathematics using Eduten Playground, a curriculum-aligned digital platform that includes about 150 exercises across topics such as arithmetic, fractions, division, and geometry. Activities appear in multiple formats, including fill-in-the-blank questions, symbol-based puzzles, drag-and-drop problems, and timed speed drills. The platform automatically grades responses and provides immediate feedback. Teachers can view a real-time dashboard showing each student's progress, accuracy, and response time. An AI feature also flags students who may be developing misconceptions in specific topics.",
+    howItWasUsed: "One of each class's regular weekly mathematics lessons was replaced with a digital session using Eduten Playground for a period of eight weeks. Students in the control group continued with standard classroom instruction during this time.",
+    whoItWasTestedWith: "The study included 135 third-grade students (approximately ages 8–9) from two elementary schools in Dubai, United Arab Emirates. Sixty-five students used the digital platform, while 70 students continued with standard classroom instruction.",
+    whatWasMeasured: "Researchers used two assessments. The first was a mathematics performance test covering seven topic areas. The second measured arithmetic fluency by assessing how many calculations students could complete correctly within a set time.",
+    howWellItWorked: "Students who used the digital platform showed slightly greater gains in mathematics than those who received standard classroom instruction. The estimated effect size was 0.13 standard deviations, indicating a modest improvement.",
+    studyNote: "The intervention lasted only eight weeks and included one digital session per week, which represents a relatively limited amount of exposure. The study-reported results were statistically significant for mathematics performance in one school but not in the other school, which had a smaller sample. These results should therefore be interpreted with some caution.",
+    effectSize: "+0.13 SD",
+    country: "United Arab Emirates",
+    educatorInsights: {
+      evidence: "A curriculum-aligned digital math practice platform produced a modest improvement in mathematics performance (+0.13 SD) compared with standard classroom instruction. The program replaced one regular math lesson per week for eight weeks.",
+      implementationSweetSpot: "The platform can substitute for one regular weekly math lesson instead of adding extra instructional time. The software delivers the exercises and feedback, while the teacher uses the dashboard to monitor progress and provide targeted support to students who may be developing misconceptions.",
+      whyItMatters: "The teacher dashboard provides real-time information on student accuracy, progress, and misconceptions across different topics. This level of visibility can make it easier to identify struggling students early and respond before learning gaps widen.",
+      practicalAdvantage: "The platform integrates easily into existing instruction because it can replace a regular lesson rather than adding extra class time. Exercises align with the national curriculum, teachers can customize assignments, and automatic grading reduces time spent marking practice work.",
+      consideration: "The study took place in Dubai and involved a relatively small sample of students from two schools. Results may differ in other educational contexts or with larger implementations."
+    },
+    tags: { gradeLevel: ["Elementary School"], subject: ["Mathematics"], deliveryMode: ["Computer/Software"], instructionalApproach: ["Adaptive/Personalized"], country: ["United Arab Emirates"] }
+  },
+  {
+    id: 36440603,
+    title: "At-Home Math Software for Disadvantaged Students",
+    study: "Tang, B., Ting, T.-T., Wu, C.-I., Ma, Y., Mo, D., Hung, W.-T., & Rozelle, S. (2020). The impact of online computer assisted learning at home for disadvantaged children in Taiwan: Evidence from a randomized experiment. Sustainability, 12, 10092.",
+    studyLink: "https://doi.org/10.3390/su122310092",
+    description: "Students from disadvantaged indigenous families practice mathematics through animation-based games on a home computer platform, reinforcing school content in one independent 60-minute session per week.",
+    whatItDoes: "Students practice mathematics through animation-based games delivered on a computer-assisted learning (CAL) platform that they access from home. The platform reinforces the same mathematics content covered in their regular school lessons that week. During each session, students solve problems on paper and then enter their answers into the platform, which displays the correct solutions. All students receive the same content, which focuses on reinforcing foundational skills rather than introducing new material.",
+    howItWasUsed: "Students completed one 60-minute CAL session per week at home across two school semesters, approximately one year. A classroom teacher provided initial training and weekly reminders but did not participate in the learning sessions themselves. Students completed the sessions independently without assistance from teachers or family members. Students in the control group did not receive access to the software.",
+    whoItWasTestedWith: "The study included 727 fourth- and fifth-grade students (approximately ages 10 to 11) from 84 rural schools across four counties in Taiwan. All students were from Yuanzhumin (aboriginal) families, a population that experiences significantly lower academic achievement than the national average and has limited access to private tutoring or other remedial support. All participating students had access to a computer and internet connection at home.",
+    whatWasMeasured: "Researchers administered a standardized mathematics test at baseline, midpoint, and the end of the program. The assessments were developed with local education experts and were completed under timed, supervised conditions.",
+    howWellItWorked: "Students assigned to the at-home CAL program showed greater gains in mathematics than students who received standard schooling alone. The estimated effect size was 0.14 standard deviations, indicating a modest improvement.",
+    studyNote: "Only about 47 percent of the original student sample had computers and internet access at home, so students without home technology were excluded from the study. Participation also declined over time. About 35 percent of students assigned to the program never logged in, which means the reported effect size reflects partial participation.",
+    effectSize: "+0.14 SD",
+    country: "Taiwan",
+    educatorInsights: {
+      evidence: "A home-based computer-assisted learning program produced a modest improvement in mathematics (+0.14 SD) for disadvantaged indigenous students in rural Taiwan. Students completed just one 60-minute session per week while continuing their regular classroom instruction.",
+      implementationSweetSpot: "The program works best as a home-based supplement rather than a school-based intervention. Students complete weekly sessions independently at home, which means the program does not replace classroom instruction or require school computer labs. Teachers only need to provide initial training and occasional reminders. Students must have reliable access to a computer and internet connection at home.",
+      whyItMatters: "In communities where private tutoring and family academic support are limited, home-based digital learning may provide one of the few scalable ways to offer additional mathematics practice. This study suggests that structured digital practice can support learning even in communities with limited educational resources.",
+      practicalAdvantage: "The program does not use classroom time and requires very little teacher involvement. Because students complete sessions at home, schools can extend learning opportunities without increasing instructional workload or scheduling demands.",
+      consideration: "These results apply only to students who already had reliable access to computers and internet at home. Schools considering this approach should first assess how many students have the necessary technology to participate consistently."
+    },
+    tags: { gradeLevel: ["Elementary School"], subject: ["Mathematics"], deliveryMode: ["Computer/Software"], instructionalApproach: ["Self-Directed"], country: ["Taiwan"] }
+  },
+  {
+    id: 36834473,
+    title: "ALEKS-Based Emporium Model for High School Algebra I",
+    study: "Wilder, S., & Berry, L. (2016). Emporium model: The key to content retention in secondary math courses. The Journal of Educators Online, 13(2), 53-73.",
+    studyLink: "https://doi.org/10.9743/JEO.2016.2.5",
+    description: "Students learn Algebra I through an AI-driven platform that assesses prior knowledge, builds a personalized learning path, and periodically reassesses mastered topics — shifting the teacher into an on-demand coaching role.",
+    whatItDoes: "Students learn Algebra I using ALEKS, an AI-driven online platform that first assesses each student's current knowledge and then builds a personalized learning path through the course material. Students work through lessons and exercises at their own pace and complete topics once they demonstrate mastery. The system periodically reassesses previously mastered topics and requires students to revisit material that has been forgotten, which helps reinforce retention over time. Instead of delivering whole-class instruction, the teacher circulates in the classroom and provides one-on-one support when students request help.",
+    howItWasUsed: "The emporium model replaced traditional instruction for one of two parallel sections of Algebra I at a rural STEM high school. Both sections were taught by the same teacher, covered the same course content, and required students to score at least 80 percent on unit assessments to demonstrate mastery.",
+    whoItWasTestedWith: "The study included 62 ninth-grade students (approximately ages 14 to 15) at a rural STEM high school in Ohio. All students had scored below 70 percent on an Algebra I placement test and were therefore placed in the introductory course. Thirty students were randomly assigned to the emporium section and 32 students to the traditional instruction section.",
+    whatWasMeasured: "Researchers administered a validated 40-question open-ended Algebra I achievement test. The assessment was developed collaboratively by a high school mathematics teacher and a university mathematics professor and was reviewed by three additional mathematics educators. The test was administered at the start of Term 1, at the end of Term 1, and again at the start of Term 2.",
+    howWellItWorked: "Both groups made similar gains during Term 1. The difference emerged after a six-week break. Students in the emporium model retained their knowledge, while students in the traditional classroom lost a substantial portion of what they had learned. The overall estimated effect size was 0.21 standard deviations.",
+    studyNote: "The study involved only 62 students at a single STEM-focused high school where mastery learning was already embedded in the school culture. This context differs from that of many typical high schools. Because the sample is small, the findings should be interpreted with caution. The study also covered only the first part of the academic year, so longer-term outcomes were not reported.",
+    effectSize: "+0.21 SD",
+    country: "United States",
+    educatorInsights: {
+      evidence: "An AI-driven mastery learning platform (ALEKS) produced a moderate improvement in Algebra I performance (+0.21 SD) compared with traditional instruction. The difference was driven mainly by stronger knowledge retention after a six-week school break rather than by greater gains during the instructional period.",
+      implementationSweetSpot: "This approach works best when the teacher's role shifts from delivering lectures to supporting students as they work independently through the platform. The software manages pacing, instruction, and reassessment, while the teacher circulates in the classroom, monitors progress dashboards, and provides targeted help when students need it. The model is especially useful in courses where students enter with widely varying levels of preparation.",
+      whyItMatters: "Students often forget a portion of what they learn over school breaks. ALEKS periodically reassesses previously completed topics and requires students to demonstrate mastery again if knowledge has faded. This repeated practice can help reinforce long-term retention, which is particularly important in mathematics where later topics build on earlier concepts.",
+      practicalAdvantage: "Because students move through personalized learning paths, the same classroom can accommodate learners with very different starting points. Students who progress quickly can move ahead, while those who need more time on a concept can receive additional practice and support.",
+      consideration: "The participating school had already adopted mastery learning principles across subjects, which likely made the transition to the emporium model smoother. Schools without an existing mastery learning culture may need additional time for teachers and students to adapt to this instructional format."
+    },
+    tags: { gradeLevel: ["High School"], subject: ["Mathematics"], deliveryMode: ["Computer/Software"], instructionalApproach: ["Adaptive/Personalized"], country: ["United States"] }
+  },
+  {
+    id: 36439801,
+    title: "Virtual and Physical Experimentation in Inquiry-Based Science Labs",
+    study: "Pyatt, K., & Sims, R. (2012). Virtual and physical experimentation in inquiry-based science labs: Attitudes, performance and access. Journal of Science Education and Technology, 21(1), 133-147.",
+    studyLink: "https://doi.org/10.1007/s10956-011-9291-6",
+    description: "Students conduct chemistry lab investigations using a computer-based simulation platform, with a crossover design where all students complete both a virtual and a traditional physical lab.",
+    whatItDoes: "LateNite Labs is a computer-based simulation platform that replicates physical chemistry laboratory investigations. Students use digital versions of common laboratory equipment to conduct the same types of experiments typically completed in a physical lab. They collect data, analyze results, and develop conceptual explanations using the simulation environment on a laptop.",
+    howItWasUsed: "Each student completed two chemistry lab investigations, one conducted virtually using the simulation platform and one conducted in a traditional physical lab. The study used a crossover design in which groups switched conditions between the two trials. Class periods lasted 55 minutes. Before the study began, students participated in a 20-minute onboarding session to learn how to use the simulation interface.",
+    whoItWasTestedWith: "The study included 184 first-year secondary chemistry students (approximately ages 14 to 15) across eight classes at a public suburban high school in the southwestern United States. The study took place over two academic years, and all classes were taught by the same instructor.",
+    whatWasMeasured: "Researchers evaluated student laboratory performance after each investigation. Measures focused on students' ability to gather data, interpret results, and develop hypotheses in the context of chemical stoichiometry experiments.",
+    howWellItWorked: "Students who conducted the virtual labs performed at least as well as those who conducted the physical labs. On one of the two trials, virtual lab students performed significantly better. In that trial, students working in the physical lab were more likely to make measurement errors that affected their data and led to incorrect conclusions.",
+    studyNote: "The performance advantage in one trial should be interpreted cautiously. Assessment design limitations may have increased variability in the results, and one of the study authors was also the classroom instructor.",
+    effectSize: "+0.30 SD",
+    country: "United States",
+    educatorInsights: {
+      evidence: "Virtual lab software matched or outperformed traditional physical labs, with an estimated effect size of +0.30 SD. The advantage appeared to come primarily from cleaner and more consistent data collection rather than from differences in instructional content.",
+      implementationSweetSpot: "This approach works well in high school chemistry courses, particularly for topics such as stoichiometry or advanced laboratory preparation. A crossover structure, where students complete both virtual and physical labs during a unit, allows teachers to combine the strengths of both formats. Students typically require only a short onboarding session to learn the platform, after which the teacher's role focuses on monitoring progress and troubleshooting during virtual sessions.",
+      whyItMatters: "Laboratory learning does not always require physical equipment to be effective. In this study, students achieved comparable or stronger learning outcomes using virtual experiments. Because simulations can be completed without specialized lab equipment, they may expand access to laboratory-style learning in settings with limited facilities or safety infrastructure.",
+      practicalAdvantage: "Virtual labs reduce a common challenge in physical experiments, which is equipment-related measurement error. When students misread a scale or mishandle equipment, incorrect data can lead them to draw inaccurate conclusions even when their conceptual understanding is sound. Simulation environments remove many of these procedural barriers so students can focus more directly on scientific reasoning and data interpretation.",
+      consideration: "This study was conducted at a single suburban high school in the United States. Results may differ in schools with different student populations, course structures, or levels of access to technology."
+    },
+    tags: { gradeLevel: ["High School"], subject: ["Science"], deliveryMode: ["Computer/Software"], instructionalApproach: ["Self-Directed"], country: ["United States"] }
+  },
+  {
+    id: 36438533,
+    title: "Live Satellite-Transmitted Instruction for Rural Primary Schools",
+    study: "Johnston, J., & Ksoll, C. (2022). Effectiveness of interactive satellite-transmitted instruction: Experimental evidence from Ghanaian primary schools. Economics of Education Review, 91, 102315.",
+    studyLink: "https://doi.org/10.1016/j.econedurev.2022.102315",
+    description: "Live, interactive math and English lessons are broadcast via satellite from a studio in Accra to rural primary classrooms, with real-time two-way communication between studio teachers and students.",
+    whatItDoes: "The MGCubed program delivers live mathematics and English lessons from a central studio in Accra to rural primary school classrooms using satellite transmission. Studio teachers broadcast interactive lessons to groups of 11 to 13 schools at the same time. Webcams and microphones allow students and classroom facilitators to communicate with the studio teachers in real time, creating a two-way instructional environment.",
+    howItWasUsed: "70 schools received a technology package that included solar panels, a satellite receiver, a projector, a webcam, and microphones. These schools participated in daily studio lessons for two academic years. Each participating classroom had a local facilitator who managed the classroom, operated the equipment, graded student work, and provided backup instruction if the satellite connection failed. Students attended two hours of satellite lessons each day while the rest of the school schedule continued as usual. 77 schools served as comparison schools.",
+    whoItWasTestedWith: "The study included approximately 3,600 students in grades 2 and 3 (ages approximately 6 to 15) across 147 public primary schools in six remote districts of Ghana's Greater Accra and Volta regions. These districts were designated by the government as under-resourced areas. Students were prioritized for participation based on marginalization criteria.",
+    whatWasMeasured: "Researchers assessed mathematics and English skills using the Early Grade Mathematics Assessment (EGMA) and the Early Grade Reading Assessment (EGRA). Assessments were administered at baseline, after the first year, and after the second year of the program. A subset of students was also assessed one year after the program ended to examine skill retention.",
+    howWellItWorked: "Students showed improvements in mathematics after the first year, and these gains remained stable through the second year. English improvements were modest for reading fluency but stronger for foundational literacy skills such as letter identification and phonics. Mathematics gains were fully maintained for students assessed one year after the program ended. Effects were consistent across all six studio teachers and across both geographic regions. The overall estimated effect size was 0.34 standard deviations.",
+    studyNote: null,
+    effectSize: "+0.34 SD",
+    country: "Ghana",
+    educatorInsights: {
+      evidence: "A large randomized controlled trial across 147 schools found a strong improvement in mathematics and literacy (+0.34 SD). Mathematics gains persisted for at least one year after the program ended, suggesting durable learning effects.",
+      implementationSweetSpot: "The model is designed for primary grades in rural settings where access to qualified teachers is limited. Students receive two hours of daily instruction from studio teachers through satellite broadcast while the rest of the school day continues normally. Each classroom requires a trained facilitator who manages the classroom, supports students during lessons, and delivers backup instruction if the connection is interrupted.",
+      whyItMatters: "The program addresses a teacher quality challenge rather than simply delivering digital content. Highly trained studio instructors provide consistent lessons across many schools, while local facilitators maintain classroom relationships, manage student participation, and support language or contextual needs.",
+      practicalAdvantage: "Results were consistent across all six studio teachers and across both participating regions, suggesting the instructional model itself drove the improvements. Mathematics gains also remained stable after the program ended, indicating lasting skill development rather than short-term test preparation.",
+      consideration: "The technology infrastructure required for satellite delivery can be costly to install. Programs may become more cost-effective when the infrastructure is shared across multiple initiatives over several years. Results may also differ in settings that are less under-resourced than the districts studied."
+    },
+    tags: { gradeLevel: ["Elementary School"], subject: ["Mathematics","Science"], deliveryMode: ["Live Instruction"], instructionalApproach: ["Teacher-Supported"], country: ["Ghana"] }
+  },
+  {
+    id: 36440669,
+    title: "Computer-Aided Instruction for Pre-Algebra and Algebra in Urban Schools",
+    study: "Barrow, L., Markman, L., & Rouse, C. E. (2009). Technology's edge: The educational benefits of computer-aided instruction. American Economic Journal: Economic Policy, 1(1), 52-74.",
+    studyLink: "https://doi.org/10.1257/pol.1.1.52",
+    description: "The I Can Learn system delivers individualized pre-algebra and algebra instruction with pretests, prerequisite review, and mastery tests, replacing traditional whole-class instruction across three large urban districts.",
+    whatItDoes: "The I Can Learn system is a computer-aided instruction (CAI) platform that provides individualized instruction in pre-algebra and algebra. Students progress through structured lessons at their own pace. Each lesson includes a pretest, prerequisite review, instructional content, cumulative practice, and a mastery test. Students who do not pass the mastery test repeat the lesson until they demonstrate proficiency. Teachers monitor student progress through dashboards and provide targeted assistance to students who need additional support rather than delivering whole-class lectures.",
+    howItWasUsed: "Entire classes were randomly assigned to either a CAI computer lab or traditional classroom instruction for the full academic year. Both groups covered the same pre-algebra and algebra curriculum. All three participating districts had already been using the program before the study began, so teachers were trained and familiar with the system.",
+    whoItWasTestedWith: "The study included approximately 3,500 students enrolled in pre-algebra and algebra courses across 17 middle and high schools in three large urban districts in the United States — one in the Northeast, one in the Midwest, and one in the South. The districts served large proportions of minority students and faced challenges related to mathematics underachievement and shortages of qualified math teachers.",
+    whatWasMeasured: "Researchers used a customized 30-item mathematics test developed by the Northwest Evaluation Association (NWEA) and aligned with each district's course objectives. The assessment was administered at the beginning and end of the school year. State mathematics tests and district benchmark exams were also used as secondary outcome measures.",
+    howWellItWorked: "Students assigned to the CAI classrooms scored higher on the algebra test than students in traditional classrooms. Positive effects were observed across multiple assessments in two of the three districts. The largest gains occurred in classrooms with larger class sizes and higher levels of student absenteeism. The overall estimated effect size was 0.36 standard deviations.",
+    studyNote: "Results differed across the three districts, with one district showing no statistically significant gains. In addition, the primary test was designed to align closely with the CAI curriculum, which means the results may not fully capture broader mathematics learning beyond the program's content.",
+    effectSize: "+0.36 SD",
+    country: "United States",
+    educatorInsights: {
+      evidence: "A large randomized study across three urban districts found a moderate improvement in algebra performance (+0.36 SD) for students using computer-aided instruction. Effects were observed across multiple assessments in two of the three districts.",
+      implementationSweetSpot: "This model works best in middle and high school pre-algebra and algebra courses, particularly in large urban schools with mixed-ability classrooms. The program replaces a full class period rather than serving as a supplement. Students complete math lessons in a computer lab while the teacher monitors progress and provides targeted assistance. Schools tend to see stronger implementation when teachers have prior training and experience with the platform.",
+      whyItMatters: "Computer-aided instruction allows students to progress at their own pace while giving teachers more time to support students who need additional help. In a traditional classroom, teachers must move the entire class at a single pace. Individualized digital instruction removes this constraint and can be especially useful in large classrooms or settings with frequent student absences.",
+      practicalAdvantage: "The researchers compared the cost of this approach with hiring additional teachers to reduce class size and found the computer-based model to be at least as cost-effective. For districts that face challenges recruiting qualified mathematics teachers, this approach may offer a practical alternative.",
+      consideration: "The study measured outcomes only within the same school year, so it is not clear whether the learning gains persist over time. The program also works best when teachers have time to adapt to their coaching role before implementation begins."
+    },
+    tags: { gradeLevel: ["Middle School","High School"], subject: ["Mathematics"], deliveryMode: ["Computer/Software"], instructionalApproach: ["Adaptive/Personalized"], country: ["United States"] }
+  },
+  {
+    id: 36834226,
+    title: "3D Serious Educational Games vs. 2D Online Simulations for High School Science",
+    study: "Lamb, R. L. (2016). Examination of the effects of dimensionality on cognitive processing in science: A computational modeling experiment comparing online laboratory simulations and serious educational games. Journal of Science Education and Technology, 25(1), 1-15.",
+    studyLink: "https://doi.org/10.1007/s10956-015-9587-z",
+    description: "A three-condition study comparing a 3D immersive epidemiologist game, a 2D online simulation, and traditional lecture for teaching biotechnology — both technology conditions significantly outperform lecture.",
+    whatItDoes: "This study compared three approaches to teaching biotechnology concepts in high school science: a 3D serious educational game, a 2D online laboratory simulation, and traditional lecture. In the 3D game, students enter a first-person immersive environment where they play the role of an epidemiologist investigating a viral outbreak. As they navigate the virtual environment, students complete tasks involving polymerase chain reactions and DNA identification. The 2D simulation covers the same biology content through interactive web-based activities that students manipulate on screen. Both technology-based approaches are largely self-directed and require minimal teacher involvement during use.",
+    howItWasUsed: "Entire 11th and 12th grade classes were randomly assigned to one of the three instructional conditions for an eight-week biotechnology unit. Students completed a content assessment before and after the unit. Each instructional condition followed its own structured format, and teachers received training to ensure consistent implementation across classrooms.",
+    whoItWasTestedWith: "The study included 210 high school students in grades 11 and 12. 70 students participated in each instructional condition. Students were selected through stratified random sampling and balanced across groups based on gender, grade level, and ethnicity.",
+    whatWasMeasured: "Researchers administered a 25-item multiple-choice test measuring biotechnology content knowledge. Test items were drawn from released state science exam questions and aligned with state science standards. The primary outcome measure was the change in scores from pretest to posttest.",
+    howWellItWorked: "Students in all three instructional conditions showed learning gains over the course of the unit. However, both technology-based approaches produced significantly larger gains than traditional lecture. The 3D educational game also produced stronger results than the 2D simulation. The reported effect size of 0.40 standard deviations reflects the average advantage of the two technology conditions over lecture-based instruction.",
+    studyNote: "Each instructional condition included only 70 students, and the study was conducted by a single researcher, which limits the ability to generalize the findings broadly. In addition, the computational model used to explain the learning mechanisms was developed by the same author and has not yet been independently validated.",
+    effectSize: "+0.40 SD",
+    country: "United States",
+    educatorInsights: {
+      evidence: "Both a 3D educational game and a 2D online simulation produced stronger learning gains than traditional lecture, with an overall improvement of +0.40 SD. The 3D game also showed an additional advantage over the 2D simulation.",
+      implementationSweetSpot: "These tools are particularly suited for high school biology or science courses that involve molecular or cellular processes where spatial reasoning plays an important role. They work best when integrated as a full instructional unit rather than as a short supplemental activity. During the activities themselves, teacher involvement is limited, and most of the instructional impact comes from how the unit is structured around the technology.",
+      whyItMatters: "The results suggest that immersive environments may support scientific reasoning by engaging cognitive processes related to spatial navigation and visualization. In this study, the learning advantage appears to come from how students interact with the environment rather than simply from increased motivation or engagement.",
+      practicalAdvantage: "Even the 2D simulation produced meaningful gains compared with traditional lecture. This means schools that do not have access to immersive 3D environments can still achieve substantial benefits by using web-based science simulations.",
+      consideration: "The instructional content focused specifically on biotechnology concepts. Results may not transfer directly to other areas of science. Schools may want to pilot the approach within a single unit before expanding it to other parts of the curriculum."
+    },
+    tags: { gradeLevel: ["High School"], subject: ["Science"], deliveryMode: ["Game-Based"], instructionalApproach: ["Self-Directed"], country: ["United States"] }
+  },
+  {
+    id: 36438171,
+    title: "Remedial Education and Computer-Assisted Learning in Primary Schools",
+    study: "Banerjee, A. V., Cole, S., Duflo, E., & Linden, L. (2007). Remedying education: Evidence from two randomized experiments in India. Quarterly Journal of Economics, 122(3), 1235-1264.",
+    studyLink: "https://doi.org/10.3386/w11904",
+    description: "Two complementary interventions: community women lead small-group remedial instruction for the weakest students while a separate adaptive computer program provides math games to grade 4 students during school hours.",
+    whatItDoes: "This study tested two complementary approaches to improving foundational skills among struggling students. The first intervention provided small-group remedial instruction led by young women from the local community, known as balsakhis. These instructors worked with the lowest-performing students on basic literacy and numeracy skills from earlier grades. The second intervention used an adaptive computer-assisted learning program in which students practiced mathematics through interactive games that adjusted to each student's current skill level.",
+    howItWasUsed: "Students in grades 3 and 4 who were identified as falling behind were pulled out of their regular classrooms for two hours each day to work with a balsakhi on foundational reading and arithmetic. At the same time, fourth-grade students also participated in a computer-based program that provided approximately two hours of shared computer time per week. During these sessions, students played adaptive math games designed to match their current learning level. Both programs were implemented across nearly 200 schools over two academic years in Vadodara and Mumbai.",
+    whoItWasTestedWith: "The study involved students in grades 3 and 4 attending government primary schools in two major Indian cities, Vadodara and Mumbai. Participating schools served low-income communities and together represented nearly 200 schools over the two-year study period.",
+    whatWasMeasured: "Researchers measured student achievement in mathematics and language using standardized tests administered at the beginning and end of the school year. A follow-up assessment conducted one year after the programs ended examined whether learning gains persisted.",
+    howWellItWorked: "Both interventions produced meaningful improvements in student achievement. The remedial instruction program showed larger effects in the second year and had the strongest impact on the lowest-performing students. The computer-assisted learning program improved mathematics scores but did not affect language outcomes. Although gains declined one year after the programs ended, some benefits remained for the weakest students. The overall estimated effect size was 0.41 standard deviations.",
+    studyNote: null,
+    effectSize: "+0.41 SD",
+    country: "India",
+    educatorInsights: {
+      evidence: "Two large randomized experiments in urban Indian primary schools found that both targeted remedial instruction and adaptive math software improved student learning, with a combined estimated effect of +0.41 SD.",
+      implementationSweetSpot: "These approaches are most useful in schools where many students have fallen behind grade-level expectations in mathematics or literacy. The remedial model works well when trained community members lead small groups focused on foundational skills. The computer-based program is most effective when it adapts instruction to each student's current level. In this study, students participated in either two hours of daily small-group remedial instruction or two hours of weekly computer-based practice.",
+      whyItMatters: "When students fall far behind grade-level expectations, simply continuing with the standard curriculum may not help them catch up. These interventions were effective because they adjusted instruction to students' actual learning levels rather than the grade-level curriculum. The largest gains occurred among the lowest-performing students who received targeted instruction.",
+      practicalAdvantage: "The remedial instruction model can be implemented at relatively low cost. It does not require certified teachers or major changes to the existing curriculum. Instead, it relies on trained community members who follow a structured instructional program focused on foundational skills.",
+      consideration: "Student gains declined in the year after the programs ended, suggesting that a single short-term intervention may not be sufficient to sustain improvements. Continued support or follow-up programming may be needed to maintain progress. In addition, the balsakhi model was developed in low-income urban communities in India and may require adaptation in other national or educational contexts."
+    },
+    tags: { gradeLevel: ["Elementary School"], subject: ["Mathematics"], deliveryMode: ["Blended"], instructionalApproach: ["Teacher-Supported"], country: ["India"] }
+  },
+  {
+    id: 36834237,
+    title: "Adaptive vs. Student-Controlled Practice in Elementary Math Software",
+    study: "Schoppek, W. (2012). Dynamic task selection in learning arithmetic: The role of learner control and adaptation based on a hierarchy of skills. Zeitschrift fur Padagogische Psychologie, 26(1), 43-55.",
+    studyLink: "https://psycnet.apa.org/doi/10.1024/1010-0652/a000059",
+    description: "Merlin's Math Mill routes third-grade students to appropriately difficult arithmetic problems using a skill hierarchy — and adaptive program-controlled selection outperforms student-chosen practice.",
+    whatItDoes: "Merlin's Math Mill is a computer-assisted learning platform designed to support practice in elementary arithmetic and word problem solving. The program draws practice items from a database of about 5,500 problems and selects them using a skill hierarchy that identifies prerequisite relationships among problem types. This system routes each student to problems that match their current skill level. An animated character provides feedback after each attempt to help guide students through the practice process.",
+    howItWasUsed: "13 third-grade classes were assigned to one of three conditions: adaptive program-controlled practice, student-selected practice, or traditional classroom instruction without software. In the student-selected condition, students chose problem types from a menu rather than receiving assignments from the algorithm. Both software conditions completed seven 45-minute practice sessions over eight weeks. During each session, classes were split in half so one group worked in the computer lab while the other remained in the classroom with the teacher. Students completed assessments at the beginning of the study, immediately after the intervention, and again about three months later.",
+    whoItWasTestedWith: "The study involved 278 third-grade students (approximately ages 8 to 9) across 13 classes in seven elementary schools in and around Bayreuth, Germany. The participating schools included both urban and rural settings.",
+    whatWasMeasured: "Researchers administered a researcher-developed arithmetic assessment covering computation and word problems. The test was given at pretest, posttest, and follow-up. The follow-up assessment was designed to evaluate how well students retained their skills after the intervention ended.",
+    howWellItWorked: "Both software conditions produced stronger learning gains than traditional classroom instruction at posttest. The advantage remained partially visible at the three-month follow-up. The adaptive, program-controlled version of the software produced stronger results than the student-choice version. Students given free choice tended to select easier problems than the algorithm would have assigned, regardless of their initial ability level. Lower-achieving students benefited the most from both software conditions. The overall estimated effect size was 0.43 standard deviations.",
+    studyNote: "The outcome measure was developed by the researchers and aligned closely with the software's internal skill hierarchy, which may make the reported advantage appear larger than it would on an independent assessment. The study was also conducted by the software's developer, and the number of participating classes was relatively small.",
+    effectSize: "+0.43 SD",
+    country: "Germany",
+    educatorInsights: {
+      evidence: "A field experiment involving 13 third-grade classes found that computer-assisted arithmetic practice produced stronger learning gains than traditional instruction. The adaptive version of the software also outperformed the student-choice version, resulting in an overall estimated improvement of +0.43 SD.",
+      implementationSweetSpot: "This approach works well as a supplemental weekly practice session of about 45 minutes rather than as a full replacement for classroom instruction. Classes can rotate students through a computer lab while the teacher continues instruction with the remaining students. The adaptive version of the program appears to drive most of the learning gains, while student-choice versions may be less effective for younger learners. No specialized teacher training is required beyond basic supervision of the session.",
+      whyItMatters: "Young learners may struggle to identify the types of practice problems that will help them improve. In this study, students who could freely choose their practice consistently selected easier problems. The adaptive system instead assigned problems at an appropriate level of difficulty, helping students progress more efficiently.",
+      practicalAdvantage: "The study directly compared an adaptive algorithm with a student-choice version of the same software. This design isolates the value of adaptive problem selection rather than simply demonstrating a general benefit of computer-based learning. Positive effects were observed across different classroom settings and remained partially visible three months after the program ended.",
+      consideration: "The study took place in Germany and was conducted by the software's developer, which may limit how broadly the findings generalize. In addition, the student-choice condition allowed students to select from a wide range of options. A more structured form of choice might produce different results in other implementations."
+    },
+    tags: { gradeLevel: ["Elementary School"], subject: ["Mathematics"], deliveryMode: ["Computer/Software"], instructionalApproach: ["Adaptive/Personalized"], country: ["Germany"] }
+  },
+  {
+    id: 36835031,
+    title: "Internet Virtual Physics Laboratory vs. Traditional Lab Instruction",
+    study: "Yang, K.-Y., & Heh, J.-S. (2007). The impact of Internet Virtual Physics Laboratory instruction on the achievement in physics, science process skills and computer attitudes of 10th-grade students. Journal of Science Education and Technology, 16(5), 451-461.",
+    studyLink: "https://doi.org/10.1007/s10956-007-9062-6",
+    description: "Students conduct structured physics experiments through a web-based simulation platform using a seven-stage problem-solving sequence, working in collaborative groups of five with assigned roles.",
+    whatItDoes: "The Internet Virtual Physics Laboratory (IVPL) is a web-based simulation platform that guides students through structured physics experiments in an online environment. Students use virtual tools such as rulers, protractors, timers, and calculators to complete experiments covering mechanics, optics, and electricity. The platform organizes each activity around a seven-stage problem-solving process that includes identifying the problem, transforming the problem, planning the experiment, conducting the experiment, recording data, explaining results, and evaluating conclusions.",
+    howItWasUsed: "Students in the experimental group completed four physics experiments using the IVPL platform over a six-week period. Classes met three times per week for 50 minutes in both the regular classroom and a computer lab. Students worked collaboratively in groups of five, with each student assigned a specific role within the group. The control group covered the same content using traditional lectures and hands-on laboratory activities. Before the study began, all students participated in a six-session course designed to build basic computer skills.",
+    whoItWasTestedWith: "The study involved 150 tenth-grade students (approximately age 16) from four classes at a private senior high school in Taoyuan County, Taiwan. Students were randomly assigned to either the virtual laboratory condition or the traditional laboratory condition, with 75 students in each group.",
+    whatWasMeasured: "Physics achievement was assessed using a researcher-developed 40-item test covering mechanics, optics, and electricity. Science process skills were measured with a validated assessment that examined both basic and integrated inquiry skills. All students completed pretests and posttests for both outcomes.",
+    howWellItWorked: "Students who participated in the virtual laboratory condition performed better than those in the traditional laboratory condition on both physics achievement and science process skills. The overall estimated effect size was 0.55 standard deviations.",
+    studyNote: "The study was conducted at a single private high school, and the outcome measures were developed by the researchers. In addition, the intervention lasted only six weeks.",
+    effectSize: "+0.55 SD",
+    country: "Taiwan",
+    educatorInsights: {
+      evidence: "A study of 150 tenth-grade students found that virtual physics laboratory instruction produced stronger learning gains than traditional lab instruction in both content knowledge and science process skills. The overall estimated improvement was +0.55 SD.",
+      implementationSweetSpot: "This approach works well for high school physics units that focus on topics such as mechanics, optics, or electricity. The virtual laboratory is designed to replace traditional lab sessions during a multi-week unit rather than serve as a short supplemental activity. Students work in collaborative groups of five with defined roles, which supports structured teamwork and discussion. Providing a brief computer orientation before the unit begins helps ensure that all students are comfortable using the technology.",
+      whyItMatters: "Traditional physics labs often face constraints related to equipment availability, safety requirements, and limited class time. Virtual laboratories can replicate the investigative structure of real experiments while removing many of these practical barriers. In this study, students improved not only in content knowledge but also in science process skills such as planning experiments, collecting data, and interpreting results.",
+      practicalAdvantage: "The platform's structured seven-stage problem-solving sequence guides students through the entire inquiry process. This design encourages students to actively analyze problems, design experimental procedures, and evaluate their conclusions rather than simply following step-by-step instructions.",
+      consideration: "Students who began the study with low confidence using computers did not show the same improvement in technology attitudes as their peers. Schools with limited technology experience may want to provide additional orientation and support before implementing the program."
+    },
+    tags: { gradeLevel: ["High School"], subject: ["Science"], deliveryMode: ["Computer/Software"], instructionalApproach: ["Self-Directed"], country: ["Taiwan"] }
+  },
+  {
+    id: 36439659,
+    title: "Computer-Assisted Schema-Based Instruction for Struggling Math Problem Solvers",
+    study: "Fede, J. L., Pierce, M. E., Matthews, W. J., & Wells, C. S. (2013). The effects of a computer-assisted, schema-based instruction intervention on word problem-solving skills of low-performing fifth grade students. Journal of Special Education Technology, 28(1), 9-21.",
+    studyLink: "https://doi.org/10.1177/016264341302800102",
+    description: "GO Solve Word Problems teaches struggling fifth-grade students to identify the underlying structure of math word problems using animated tutorials and graphic organizers before attempting to solve them.",
+    whatItDoes: "GO Solve Word Problems is a computer-assisted instructional program that teaches students to identify the underlying structure of math word problems before attempting to solve them. The program uses animated tutorials and guided practice activities supported by graphic organizers that highlight the mathematical relationships within each problem. Instruction covers addition and subtraction, multiplication and division, and more advanced multiplication and division modules. Students can personalize problem contexts by inserting their own names and familiar situations. The program adapts the difficulty of problems based on student performance and provides immediate feedback.",
+    howItWasUsed: "Students in the intervention group used the GO Solve program twice per week for 12 weeks in place of their regular mathematics review class. Sessions were conducted in small groups of about 16 students, with each student working individually on a laptop. Students progressed through the instructional modules at their own pace and moved forward only after meeting accuracy requirements across multiple sessions. Students in the control group continued attending their standard test preparation review class. All students completed assessments at the beginning and end of the study, along with biweekly progress checks throughout the intervention.",
+    whoItWasTestedWith: "The study included 32 fifth-grade students who scored below the 30th percentile in math word problem solving at one middle school in western Massachusetts. Students were randomly assigned to either the intervention or control group, with 16 students in each condition. Most participants were Caucasian, and six students had individualized education plans (IEPs).",
+    whatWasMeasured: "Researchers measured three outcomes. The first was a set of word problems drawn from previous Massachusetts state mathematics assessments. The second was the Process and Application subtest of the Group Mathematics Assessment and Diagnostic Evaluation (GMADE), a standardized and norm-referenced mathematics measure. The third outcome consisted of seven biweekly researcher-developed probes aligned with the program's instructional content.",
+    howWellItWorked: "Students who participated in the GO Solve program outperformed students in the control group on the state-test-aligned word problem measure. They also demonstrated faster improvement across the biweekly progress probes, with the difference between groups becoming more pronounced during the second half of the intervention. However, there was no statistically significant difference between groups on the standardized GMADE subtest. The overall estimated effect size was 0.60 standard deviations.",
+    studyNote: "The study involved a very small sample of only 16 students per group at a single school with a relatively homogeneous student population. In addition, the control condition consisted of an inconsistent test preparation review class, which may have made the intervention appear more effective than it would compared with a stronger instructional alternative.",
+    effectSize: "+0.60 SD",
+    country: "United States",
+    educatorInsights: {
+      evidence: "A randomized controlled study of 32 struggling fifth-grade students found that computer-assisted schema-based instruction improved word problem solving over a 12-week period, producing an estimated effect of +0.60 SD. Student improvement accelerated during the second half of the intervention.",
+      implementationSweetSpot: "This approach is designed for students in grades 3 through 6 who struggle with math word problems. It works best as a supplemental intervention delivered twice per week rather than as a replacement for core mathematics instruction. Students progress through modules at their own pace and advance only after meeting mastery criteria. Sessions can be conducted in small supervised groups where students work individually on laptops.",
+      whyItMatters: "Many struggling math students have difficulty solving word problems not because they lack computational skills but because they struggle to interpret the structure of the problem. Schema-based instruction focuses directly on this challenge by teaching students to recognize recurring problem types and represent them using structured graphic organizers.",
+      practicalAdvantage: "Progress monitoring during the study revealed that learning gains increased gradually over time, with the largest improvements appearing after about six weeks of instruction. This pattern suggests that sustained implementation is important for students to fully benefit from the program.",
+      consideration: "The program produced its strongest effects on assessments closely aligned with the instructional content. It should be viewed as a targeted intervention for improving word problem solving rather than a comprehensive approach to raising overall mathematics achievement."
+    },
+    tags: { gradeLevel: ["Elementary School"], subject: ["Mathematics"], deliveryMode: ["Computer/Software"], instructionalApproach: ["Adaptive/Personalized"], country: ["United States"] }
+  },
+  {
+    id: 36438167,
+    title: "Tutorial and Edutainment Software for Cell Division Instruction in Secondary Biology",
+    study: "Kara, Y., & Yesilyurt, S. (2008). Comparing the impacts of tutorial and edutainment software programs on students' achievements, misconceptions, and attitudes towards biology. Journal of Science Education and Technology, 17(1), 32-41.",
+    studyLink: "https://doi.org/10.1007/s10956-007-9077-z",
+    description: "A three-condition study comparing structured tutorial software, a role-playing science adventure game, and traditional lecture for teaching cell division to ninth-grade biology students.",
+    whatItDoes: "This study compared two types of instructional software for teaching cell division with traditional classroom instruction. The tutorial software presents structured biology content using text, animations, audio narration, diagrams, and interactive learning activities that provide feedback. The edutainment software is a role-playing science adventure game in which students help rescue a scientist by solving biology puzzles. Through exploration and guidance from an embedded science tutor, students learn about cell division, genetics, and related biological processes.",
+    howItWasUsed: "Three ninth-grade classes were assigned to one of three instructional conditions: tutorial software, edutainment software, or traditional teacher-led instruction. Students in the two software conditions worked individually in a computer lab while a teacher remained available to answer technical questions. The control group received lecture and discussion instruction covering the same cell division content. All groups completed the instructional unit over four 45-minute class sessions.",
+    whoItWasTestedWith: "The study involved 72 ninth-grade students (approximately ages 14 to 15) from one public secondary school in Turkey. Each of the three instructional conditions included 24 students. All participants were familiar with basic computer use but had not previously experienced computer-assisted instruction.",
+    whatWasMeasured: "Researchers measured three outcomes before and after instruction. The first was a 24-item researcher-developed test assessing knowledge of cell division. The second was a concept assessment designed to identify misconceptions related to mitosis, meiosis, chromosome number, and genetic information. The third outcome measured student attitudes toward biology using a 15-item survey scale.",
+    howWellItWorked: "Both software-based instructional approaches produced stronger gains in content knowledge and reductions in misconceptions than traditional instruction. The edutainment program also led to significantly more positive attitudes toward biology than both the tutorial software and the traditional classroom condition. Some misconceptions remained across all groups after instruction, particularly those related to more abstract aspects of mitosis and meiosis. The overall estimated effect size was 0.69 standard deviations.",
+    studyNote: "The study took place at a single school with only 24 students in each condition, which limits the generalizability of the findings. The intervention lasted only four class sessions, so part of the observed effect may reflect the novelty of the technology. In addition, the outcome measures were developed by the researchers and aligned closely with the instructional content.",
+    effectSize: "+0.69 SD",
+    country: "Turkey",
+    educatorInsights: {
+      evidence: "A study involving 72 ninth-grade students found that both tutorial and edutainment software improved learning about cell division compared with traditional instruction. The overall estimated improvement was +0.69 SD, and the edutainment program also increased students' interest in biology.",
+      implementationSweetSpot: "These tools are well suited for secondary biology topics that involve complex and abstract processes, such as cell division. The programs work best as a replacement for lecture-based instruction during a short instructional unit. Students can work individually at their own pace in a computer lab while the teacher provides logistical support and answers occasional questions.",
+      whyItMatters: "Cell division is one of the most persistently misunderstood topics in secondary biology. Traditional lecture struggles with it because the processes are dynamic, three-dimensional, and abstract. Both software formats provided animated, interactive representations that lecture cannot replicate — and both meaningfully reduced misconceptions that lecture left intact.",
+      practicalAdvantage: "The edutainment format achieved similar learning gains as the tutorial software while also improving student attitudes toward biology. This suggests that game-based approaches may support both conceptual learning and student engagement.",
+      consideration: "Although the software helped reduce misconceptions, some misunderstandings about abstract concepts remained after instruction. Teachers may want to follow the software-based lessons with discussion or additional activities to reinforce these ideas and ensure deeper understanding."
+    },
+    tags: { gradeLevel: ["High School"], subject: ["Science"], deliveryMode: ["Game-Based"], instructionalApproach: ["Self-Directed"], country: ["Turkey"] }
+  },
+  {
+    id: 36835353,
+    title: "iPad Fractions Game for Elementary Number Sense",
+    study: "Riconscente, M. M. (2013). Results from a controlled study of the iPad fractions game Motion Math. Games and Culture: A Journal of Interactive Media, 8(4), 186-214.",
+    studyLink: "https://psycnet.apa.org/doi/10.1177/1555412013496894",
+    description: "Motion Math is an iPad game where students tilt the device to place fractions on a number line, delivering hundreds of placement problems in 20-minute daily sessions over five school days.",
+    whatItDoes: "Motion Math is an iPad game designed to strengthen students' understanding of fractions as numbers on a number line. Students tilt the device to guide a falling star to the correct location on a number line. Problems are presented in multiple representations, including fractions, decimals, percentages, and pie charts. When students answer incorrectly, the game provides increasingly explicit hints such as directional arrows, hash marks on the number line, and labeled positions. The game includes 72 levels of increasing difficulty across three modes, and each session generates many fraction placement problems.",
+    howItWasUsed: "Students played Motion Math for 20 minutes each day for five consecutive school days. The study used a crossover design. One group played the game during the first week while the other group served as the control group, and the groups switched roles during the second week. Teachers agreed not to provide classroom instruction on fractions during the study period so that the effects of the game could be isolated. The game was used as a stand-alone activity rather than integrated into classroom lessons.",
+    whoItWasTestedWith: "The study involved 122 fourth- and fifth-grade students from two public elementary schools in southern California. One school served primarily low-income Latino students, while the other had a more mixed population of Caucasian and Latino students. All students had previously received some instruction on fractions.",
+    whatWasMeasured: "Fractions knowledge was assessed using a test constructed from released items from California state assessments, the National Assessment of Educational Progress (NAEP), and international mathematics assessments. Student attitudes toward fractions were also measured using three subscales that assessed self-efficacy, liking of fractions, and perceived knowledge of fractions. Students additionally rated their experience using the game.",
+    howWellItWorked: "Students' fractions knowledge improved significantly during the weeks when they played the game. Gains were clearly associated with the periods of gameplay and continued to be visible in the weeks that followed. Students also reported higher self-efficacy and greater enjoyment of fractions during the gameplay period, and these improvements remained after gameplay ended. The overall estimated effect size was 0.70 standard deviations.",
+    studyNote: "The study was funded through a grant to Motion Math Games, which introduces a potential conflict of interest. The comparison condition consisted of regular classroom time without fractions instruction rather than an alternative instructional intervention. As a result, the findings demonstrate that the game can improve learning but do not show whether it performs better than other teaching approaches. Individual-level subgroup data were not collected.",
+    effectSize: "+0.70 SD",
+    country: "United States",
+    educatorInsights: {
+      evidence: "A controlled crossover experiment involving 122 students across two elementary schools found that one week of daily gameplay significantly improved fractions knowledge and attitudes. The overall estimated improvement was +0.70 SD, and gains remained after students stopped playing the game.",
+      implementationSweetSpot: "This approach works best for fourth- and fifth-grade students who have already received some instruction on fractions but have not yet developed strong number line understanding. The game is most effective as a short daily supplement of about 20 minutes rather than a replacement for regular fractions instruction. Students can work independently on individual devices without direct teacher involvement.",
+      whyItMatters: "Many fractions lessons focus on fractions as parts of a whole, such as slices of a pie or shaded shapes. While helpful initially, this representation can make it harder for students to understand fractions as numbers with magnitude. Motion Math focuses directly on placing fractions on a number line, which helps students build a stronger sense of numerical magnitude and relationships among fractions.",
+      practicalAdvantage: "The crossover design provided strong evidence because each group of students served as its own comparison. Improvements in both knowledge and attitudes occurred specifically during the periods when students played the game and remained visible afterward.",
+      consideration: "Some of the positive engagement and attitude effects may reflect the novelty of using an iPad. In addition, the comparison condition did not include another fractions intervention. Schools should view this tool as a targeted supplement for building number line understanding rather than a complete fractions curriculum."
+    },
+    tags: { gradeLevel: ["Elementary School"], subject: ["Mathematics"], deliveryMode: ["Game-Based"], instructionalApproach: ["Self-Directed"], country: ["United States"] }
+  }
+];
 
-    const interventions = [
-      {
-        id: 36833706,
-        title: "Teacher-Facilitated Math Software for Grade 6",
-        study: "Afzal, M. T., & Gondal, M. B. (2010). Effect of mathematics software facilitated teaching on students learning. The International Journal of Technology, Knowledge and Society, 6(3).",
-        studyLink: "https://doi.org/10.18848/1832-3669/CGP/v06i03/56125",
-        description: "Interactive math software combined with active teacher support, where teachers regularly explain concepts, answer questions, and reinforce learning while students work on computers.",
-        whatItDoes: "This program uses interactive math software alongside active teacher support. Students learn math concepts on the computer, while the teacher regularly steps in to explain ideas, answer questions, and reinforce learning using familiar classroom tools. A lab assistant helps with technical issues so students can stay focused on learning.",
-        howItWasUsed: "Students worked on software-based lessons covering integers, algebra, and geometry. Instruction took place three times per week in a computer lab. Teachers stayed actively involved throughout each session rather than letting students work entirely on their own.",
-        whoItWasTestedWith: "The study included 312 sixth-grade students from four public schools in Punjab Province, Pakistan. Schools represented both urban and rural settings and included boys' and girls' schools.",
-        whatWasMeasured: "Student learning was measured using a math test created by the researchers. The test assessed students' ability to remember, understand, and apply math concepts and included multiple-choice, short-answer, and longer problem-solving questions.",
-        howWellItWorked: "Students who received teacher-facilitated math software instruction performed better on math achievement than students taught with traditional instruction or self-paced computer instruction. The size of the improvement was moderate, with an estimated effect size of 0.50, and a 95% confidence interval from 0.22 to 0.77.",
-        effectSize: "+0.50 SD",
-        effectLabel: "Large Effect",
-        tags: {
-          gradeLevel: ["Middle School"],
-          subject: ["Mathematics"],
-          deliveryMode: ["Blended"],
-          instructionalApproach: ["Teacher-Supported"],
-          country: ["Pakistan"]
-        }
-      },
-      {
-        id: 36834237,
-        title: "Adaptive Arithmetic Practice with Program-Guided Task Selection",
-        study: "Chen, L., Van Herwegen, J., & Malone, S. (2021). The efficacy of an adaptive training programme on number sense in kindergarten children. Research in Developmental Disabilities, 115, 104010.",
-        studyLink: "https://doi.org/10.1016/j.ridd.2021.104010",
-        description: "A math program that automatically adjusts to each student's level, choosing problems that are appropriately challenging and providing immediate feedback after each answer.",
-        whatItDoes: "This computer program adapts to each student's current skill level by automatically selecting math problems that are appropriately challenging. Students complete number sense activities on tablets and receive immediate feedback after each answer. The program adjusts difficulty based on performance to keep students engaged at the right level of challenge.",
-        howItWasUsed: "Kindergarten students completed 10-minute practice sessions three times per week over seven weeks, for a total of 210 minutes. Sessions took place during regular school hours using classroom tablets. Students worked independently while teachers monitored the class.",
-        whoItWasTestedWith: "The study involved 107 kindergarten students (approximately ages 4-5) from six urban schools in Taiwan. Students came from diverse backgrounds and had varying levels of prior math knowledge.",
-        whatWasMeasured: "Students completed assessments measuring number sense skills including counting, number comparison, and understanding of number relationships. Tests were administered before and after the intervention period.",
-        howWellItWorked: "Students who used the adaptive arithmetic program showed greater improvement in number sense skills compared to students in regular instruction. The effect was moderate, with an estimated effect size of 0.37 and a 95% confidence interval from 0.03 to 0.72.",
-        effectSize: "+0.37 SD",
-        effectLabel: "Moderate Effect",
-        tags: {
-          gradeLevel: ["Elementary School"],
-          subject: ["Mathematics"],
-          deliveryMode: ["Computer/Software"],
-          instructionalApproach: ["Adaptive/Personalized"],
-          country: ["Taiwan"]
-        }
-      },
-      {
-        id: 36835681,
-        title: "Video-Based Guided Inquiry for High School Chemistry",
-        study: "Dinçer, S., & Doğanay, A. (2017). The effects of multiple-pedagogical agents on learners' academic success, motivation, and cognitive load. Computers & Education, 111, 74-100.",
-        studyLink: "https://doi.org/10.1016/j.compedu.2017.04.005",
-        description: "High school chemistry lessons delivered through videos where an on-screen instructor guides students through scientific investigations using the inquiry method.",
-        whatItDoes: "Students watch instructional videos where a teacher guides them through chemistry investigations using the inquiry learning method. The video instructor poses questions, demonstrates experiments, and helps students develop scientific reasoning skills. Students work through the inquiry process while watching and can pause or replay as needed.",
-        howItWasUsed: "Students completed six 40-minute video-based lessons on electrochemistry. Videos were watched during regular class time in a computer lab. Each video guided students through inquiry activities including making observations, asking questions, and drawing conclusions.",
-        whoItWasTestedWith: "The study included 108 10th grade students (approximately ages 15-16) from a public high school in Adana, Turkey. All students were studying chemistry as part of their standard curriculum.",
-        whatWasMeasured: "Achievement was measured using a researcher-developed test covering electrochemistry concepts. The test included questions assessing knowledge, comprehension, and application of chemical principles.",
-        howWellItWorked: "Students who learned through video-based guided inquiry demonstrated higher achievement in chemistry compared to students who received traditional face-to-face instruction. The improvement was large, with an estimated effect size of 0.78 and a 95% confidence interval from 0.40 to 1.17.",
-        effectSize: "+0.78 SD",
-        effectLabel: "Large Effect",
-        tags: {
-          gradeLevel: ["High School"],
-          subject: ["Science"],
-          deliveryMode: ["Computer/Software"],
-          instructionalApproach: ["Self-Directed"],
-          country: ["Turkey"]
-        }
-      },
-      {
-        id: 36833975,
-        title: "Math Game with Competitive Elements for Elementary Students",
-        study: "Bai, H., Pan, W., Hirumi, A., & Kebritchi, M. (2012). Assessing the effectiveness of a 3-D instructional game on improving mathematics achievement and motivation of middle school students. British Journal of Educational Technology, 43(6), 993-1003.",
-        studyLink: "https://doi.org/10.1111/j.1467-8535.2011.01269.x",
-        description: "A 3D math video game where students solve problems in a virtual environment, earn points, and compete with classmates on a leaderboard.",
-        whatItDoes: "Students play a 3D video game designed to teach math concepts through problem-solving challenges in a virtual environment. The game includes competitive elements like points and leaderboards where students can see how they rank compared to classmates. Players navigate through game scenarios that require applying math skills to progress.",
-        howItWasUsed: "Students played the math game during regular computer lab time over an 18-week period. Sessions took place twice per week for 45 minutes each. Students worked individually but could see their standing on class leaderboards.",
-        whoItWasTestedWith: "The study involved 448 seventh and eighth grade students (approximately ages 12-14) from a large urban middle school in the southeastern United States. The school served a diverse student population.",
-        whatWasMeasured: "Math achievement was assessed using standardized state mathematics tests that measured students' ability to solve problems and apply mathematical concepts. Tests were administered before and after the intervention.",
-        howWellItWorked: "Students who used the math game showed greater improvement in math achievement compared to students who received regular instruction. The effect was moderate to large, with an estimated effect size of 0.67 and a 95% confidence interval from 0.48 to 0.86.",
-        effectSize: "+0.67 SD",
-        effectLabel: "Large Effect",
-        tags: {
-          gradeLevel: ["Middle School"],
-          subject: ["Mathematics"],
-          deliveryMode: ["Game-Based"],
-          instructionalApproach: ["Self-Directed"],
-          country: ["United States"]
-        }
-      },
-      {
-        id: 36836013,
-        title: "Combining Computer Simulations with Hands-On Science Activities",
-        study: "Zacharia, Z. C., Loizou, E., & Papaevripidou, M. (2012). Is physicality an important aspect of learning through science experimentation among kindergarten students? Early Childhood Research Quarterly, 27(3), 447-457.",
-        studyLink: "https://doi.org/10.1016/j.ecresq.2012.02.004",
-        description: "Students learn about electricity using both interactive computer simulations and real laboratory materials, first completing tasks on simulation then repeating with physical equipment.",
-        whatItDoes: "This approach combines computer simulations with traditional hands-on lab work to teach science concepts. Students first explore scientific phenomena using interactive computer simulations where they can safely manipulate variables and observe results. They then repeat similar experiments using actual physical materials and equipment, reinforcing their understanding through both virtual and tactile experiences.",
-        howItWasUsed: "Kindergarten students completed activities on electric circuits using both computer simulations and physical materials. Activities were conducted during science instruction time. Students worked in pairs, first exploring concepts through simulations, then conducting the same experiments with real batteries, wires, and bulbs.",
-        whoItWasTestedWith: "The study included 60 kindergarten students (approximately ages 5-6) from two public schools in Nicosia, Cyprus. Students had no prior formal instruction on electricity or circuits.",
-        whatWasMeasured: "Learning was assessed through hands-on performance tasks where students had to build working electric circuits. Researchers observed whether students could successfully complete circuit challenges and measured their conceptual understanding through verbal explanations.",
-        howWellItWorked: "Students who used both computer simulations and hands-on materials demonstrated better understanding of electric circuits compared to students who used only physical materials. The improvement was large, with an estimated effect size of 0.43 and a 95% confidence interval from -0.08 to 0.94.",
-        effectSize: "+0.43 SD",
-        effectLabel: "Large Effect",
-        tags: {
-          gradeLevel: ["Elementary School"],
-          subject: ["Science"],
-          deliveryMode: ["Blended"],
-          instructionalApproach: ["Teacher-Supported"],
-          country: ["Finland"]
-        }
-      },
-      {
-        id: 36834446,
-        title: "Live Online Math Tutoring with Small Groups",
-        study: "Roschelle, J., Feng, M., Murphy, R. F., & Mason, C. A. (2016). Online mathematics homework increases student achievement. AERA Open, 2(4), 2332858416673968.",
-        studyLink: "https://doi.org/10.1177/2332858416673968",
-        description: "Small groups of students meet online with a live tutor who provides real-time instruction, answers questions, and guides practice on math problems.",
-        whatItDoes: "Students receive live online math instruction from a tutor in small groups of 3-4 students. The tutor teaches new concepts, demonstrates problem-solving strategies, and provides immediate feedback as students work through problems together. Sessions take place via video conference where students can see the tutor, share their work, and ask questions in real time.",
-        howItWasUsed: "Students participated in 30-minute live tutoring sessions twice per week over 16 weeks. Sessions took place after school hours at home or in school computer labs. Each small group had the same tutor throughout the program to build continuity.",
-        whoItWasTestedWith: "The study involved 2,850 students in grades 3-7 (approximately ages 8-13) from schools across multiple states in the United States. Students came from diverse backgrounds and varied widely in their initial math proficiency.",
-        whatWasMeasured: "Math achievement was measured using the ASSISTments online homework and assessment platform, which tracked students' problem-solving accuracy across multiple math topics. Performance was monitored continuously throughout the school year.",
-        howWellItWorked: "Students who received live online tutoring showed improvement in math achievement compared to students without tutoring. The effect was small but positive, with an estimated effect size of 0.18 and a 95% confidence interval from 0.08 to 0.28.",
-        effectSize: "+0.18 SD",
-        effectLabel: "Moderate Effect",
-        tags: {
-          gradeLevel: ["Elementary School", "Middle School"],
-          subject: ["Mathematics"],
-          deliveryMode: ["Live Instruction"],
-          instructionalApproach: ["Teacher-Supported"],
-          country: ["United States"]
-        }
-      },
-      {
-        id: 36836123,
-        title: "Personalized Math Software with Adaptive Difficulty",
-        study: "Kelly, K., Heffernan, N., Heffernan, C., Goldman, S., Pellegrino, J., & Soffer Goldstein, D. (2013). Estimating the effect of web-based homework. In Artificial Intelligence in Education: 16th International Conference, AIED 2013.",
-        studyLink: "https://doi.org/10.1007/978-3-642-39112-5_90",
-        description: "Math software that automatically adjusts problem difficulty based on each student's performance, providing hints and worked examples when students struggle.",
-        whatItDoes: "This math software personalizes learning by automatically adjusting to each student's skill level. When students answer correctly, the program gives harder problems; when they struggle, it provides easier ones along with hints and step-by-step examples. The system tracks progress and ensures students practice at an appropriate level of challenge.",
-        howItWasUsed: "Students completed math homework assignments through the ASSISTments platform throughout the school year. Assignments were given regularly as part of normal homework routine. Students could work on assignments at school or at home and received immediate feedback on their work.",
-        whoItWasTestedWith: "The study included 263 seventh grade students (approximately ages 12-13) from a middle school in Massachusetts, United States. Students used the system for their regular math homework throughout the academic year.",
-        whatWasMeasured: "Achievement was measured using the Massachusetts Comprehensive Assessment System (MCAS) standardized mathematics test administered at the end of the year. The test assessed students' understanding of seventh grade math standards.",
-        howWellItWorked: "Students who used the personalized math software for homework demonstrated higher mathematics achievement compared to students who completed traditional paper homework. The improvement was moderate, with an estimated effect size of 0.58 and a 95% confidence interval from 0.15 to 1.01.",
-        effectSize: "+0.58 SD",
-        effectLabel: "Large Effect",
-        tags: {
-          gradeLevel: ["Middle School"],
-          subject: ["Mathematics"],
-          deliveryMode: ["Computer/Software"],
-          instructionalApproach: ["Adaptive/Personalized"],
-          country: ["United States"]
-        }
-      },
-      {
-        id: 36836304,
-        title: "Online Math Practice with Instant Feedback",
-        study: "Singh, K., Granville, M., & Dika, S. (2002). Mathematics and science achievement: Effects of motivation, interest, and academic engagement. The Journal of Educational Research, 95(6), 323-332.",
-        studyLink: "https://doi.org/10.1080/00220670209596607",
-        description: "Students complete math exercises on a computer that immediately shows whether answers are correct and provides explanations for wrong answers.",
-        whatItDoes: "Students practice math problems on a computer that gives instant feedback after each answer. When students get problems wrong, the program explains the correct solution and why their answer was incorrect. Students can work at their own pace and repeat problems until they understand the concepts.",
-        howItWasUsed: "Students used the online math practice system for regular homework and classwork throughout the school year. Practice sessions typically lasted 20-30 minutes and occurred 2-3 times per week. Students could access the system from school computers or at home.",
-        whoItWasTestedWith: "The study involved 13,373 students in grades 8 and 10 (approximately ages 13-16) from schools across the United States. The sample included students from diverse geographic and socioeconomic backgrounds.",
-        whatWasMeasured: "Math achievement was measured using standardized test scores from the National Education Longitudinal Study. Tests assessed students' ability to solve problems across various math topics including algebra, geometry, and data analysis.",
-        howWellItWorked: "Students who used online math practice with instant feedback showed improvement in math achievement compared to students without access to the system. The effect was small, with an estimated effect size of 0.10 and a 95% confidence interval from 0.03 to 0.17.",
-        effectSize: "+0.10 SD",
-        effectLabel: "Moderate Effect",
-        tags: {
-          gradeLevel: ["Middle School", "High School"],
-          subject: ["Mathematics"],
-          deliveryMode: ["Computer/Software"],
-          instructionalApproach: ["Self-Directed"],
-          country: ["United States"]
-        }
-      },
-      {
-        id: 36835890,
-        title: "Interactive Science Simulations for Middle School",
-        study: "Smetana, L. K., & Bell, R. L. (2012). Computer simulations to support science instruction and learning: A critical review of the literature. International Journal of Science Education, 34(9), 1337-1370.",
-        studyLink: "https://doi.org/10.1080/09500693.2011.605182",
-        description: "Students explore science concepts by manipulating variables in computer simulations that model real-world phenomena like chemical reactions or physics experiments.",
-        whatItDoes: "Students use interactive computer simulations to explore science concepts by manipulating variables and observing outcomes in a virtual environment. The simulations model real-world scientific phenomena, allowing students to conduct experiments that might be too dangerous, expensive, or time-consuming to do with actual materials. Students can test hypotheses, collect data, and observe patterns just like in a real laboratory.",
-        howItWasUsed: "Students used science simulations during regular class time as part of their science curriculum. Simulations covered various topics including chemistry, physics, and biology. Students typically worked individually or in pairs, with teachers providing guidance and facilitating discussion about observations and findings.",
-        whoItWasTestedWith: "The review analyzed studies involving students across grades 6-12 (approximately ages 11-18) from schools in multiple countries. Contexts ranged from well-resourced schools with extensive technology access to schools with limited computer availability.",
-        whatWasMeasured: "Science learning was measured using various assessments including content knowledge tests, conceptual understanding measures, and scientific reasoning tasks. Specific measures varied by study but generally assessed students' grasp of scientific principles and ability to apply them.",
-        howWellItWorked: "Students who learned science using interactive simulations showed greater improvement in understanding scientific concepts compared to students receiving traditional instruction. The improvement was moderate to large, with an estimated effect size of 0.47 and a 95% confidence interval from 0.31 to 0.63.",
-        effectSize: "+0.47 SD",
-        effectLabel: "Large Effect",
-        tags: {
-          gradeLevel: ["Middle School", "High School"],
-          subject: ["Science"],
-          deliveryMode: ["Computer/Software"],
-          instructionalApproach: ["Self-Directed"],
-          country: ["United States"]
-        }
-      },
-      {
-        id: 36834588,
-        title: "Computer-Based Fraction Practice for Elementary Math",
-        study: "Fuchs, L. S., Schumacher, R. F., Long, J., Namkung, J., Hamlett, C. L., Cirino, P. T., ... & Changas, P. (2013). Improving at-risk learners' understanding of fractions. Journal of Educational Psychology, 105(3), 683.",
-        studyLink: "https://doi.org/10.1037/a0032446",
-        description: "Elementary students practice fraction concepts and operations using computer software that provides scaffolded problems and immediate feedback.",
-        whatItDoes: "This computer program helps elementary students learn fractions through structured practice activities. The software breaks down complex fraction concepts into smaller steps, providing scaffolding and support as students work. Students receive immediate feedback on their answers and can see visual representations of fractions to build conceptual understanding alongside computational skills.",
-        howItWasUsed: "Students completed 3 practice sessions per week over 12 weeks, with each session lasting approximately 15-20 minutes. Practice took place during regular math instruction time in computer labs or on classroom computers. Students worked independently while teachers circulated to assist as needed.",
-        whoItWasTestedWith: "The study included 136 fourth-grade students (approximately ages 9-10) identified as at-risk for math difficulties from schools in Tennessee, United States. Students were selected based on low performance on screening assessments of fraction knowledge.",
-        whatWasMeasured: "Fraction understanding was assessed using researcher-developed tests measuring conceptual knowledge, procedural skills, and ability to apply fraction concepts to word problems. Tests were administered before and after the intervention period.",
-        howWellItWorked: "Students who used the computer-based fraction practice showed greater improvement in fraction understanding compared to students who received standard fraction instruction. The improvement was large, with an estimated effect size of 1.14 and a 95% confidence interval from 0.78 to 1.50.",
-        effectSize: "+1.14 SD",
-        effectLabel: "Large Effect",
-        tags: {
-          gradeLevel: ["Elementary School"],
-          subject: ["Mathematics"],
-          deliveryMode: ["Computer/Software"],
-          instructionalApproach: ["Self-Directed"],
-          country: ["United States"]
-        }
-      },
-      {
-        id: 36835125,
-        title: "Virtual Lab for Chemistry Experiments",
-        study: "Chien, Y. C., Chang, C. Y., Yeh, T. K., & Chang, K. E. (2012). Engaging pre-service science teachers to act as active designers of technology integration: A mobile technology-enhanced training program. Teaching and Teacher Education, 28(4), 578-588.",
-        studyLink: "https://doi.org/10.1016/j.tate.2012.01.008",
-        description: "Students conduct chemistry experiments in a virtual laboratory where they can safely mix chemicals, observe reactions, and collect data without physical materials or safety risks.",
-        whatItDoes: "Students perform chemistry experiments in a virtual laboratory environment on a computer or tablet. The virtual lab allows them to mix chemicals, heat solutions, measure properties, and observe reactions without the safety concerns or material costs of a real lab. Students can repeat experiments multiple times, test different variables, and collect data just as they would in a physical laboratory.",
-        howItWasUsed: "Students completed virtual chemistry lab activities as part of their regular science curriculum over one semester. Labs were conducted during scheduled science class time and included pre-lab preparation, conducting the virtual experiment, and post-lab analysis. Each lab session lasted approximately 45 minutes.",
-        whoItWasTestedWith: "The study involved 68 pre-service science teachers (college students training to become teachers) in Taiwan. Participants were enrolled in a science education program and had varying levels of prior chemistry knowledge and technology experience.",
-        whatWasMeasured: "Learning outcomes were assessed through content knowledge tests covering chemistry concepts, lab reports evaluating students' ability to conduct experiments and analyze results, and practical skills assessments. Attitudes toward chemistry learning were also measured through surveys.",
-        howWellItWorked: "Students who used the virtual chemistry lab demonstrated greater improvement in chemistry knowledge and lab skills compared to students who completed only paper-based activities. The improvement was very large, with an estimated effect size of 1.34 and a 95% confidence interval from 0.81 to 1.87.",
-        effectSize: "+1.34 SD",
-        effectLabel: "Large Effect",
-        tags: {
-          gradeLevel: ["High School"],
-          subject: ["Science"],
-          deliveryMode: ["Computer/Software"],
-          instructionalApproach: ["Self-Directed"],
-          country: ["Taiwan"]
-        }
-      },
-      {
-        id: 36834815,
-        title: "Tablet-Based Math Games for Early Elementary",
-        study: "Schacter, J., & Fagnano, C. (1999). Does computer technology improve student learning and achievement? How, when, and under what conditions? Journal of Educational Computing Research, 20(4), 329-343.",
-        studyLink: "https://doi.org/10.2190/24EV-HHD1-VJP2-R5PD",
-        description: "Young students play educational math games on tablets that teach basic number concepts, counting, and simple arithmetic through colorful, interactive activities.",
-        whatItDoes: "This program uses math games on tablets designed specifically for young learners. Games teach foundational math concepts like counting, number recognition, and basic addition and subtraction through engaging, age-appropriate activities. The games include colorful graphics, simple touch-based interactions, and rewards that keep young children motivated while building essential math skills.",
-        howItWasUsed: "Students played math games on tablets for 20 minutes per day, 5 days per week over a 9-week period. Game play took place during regular math instruction time in the classroom. Students worked individually on their own tablets with minimal teacher intervention once they learned how to use the apps.",
-        whoItWasTestedWith: "The study included 166 students in grades K-2 (approximately ages 5-8) from schools in a large urban district in California, United States. Schools served predominantly low-income communities and included many English language learners.",
-        whatWasMeasured: "Math achievement was assessed using standardized achievement tests appropriate for each grade level. Tests measured basic numeracy skills, problem-solving ability, and understanding of mathematical concepts taught in the curriculum.",
-        howWellItWorked: "Students who used tablet-based math games showed greater improvement in math achievement compared to students who received only traditional instruction. The improvement was moderate to large, with an estimated effect size of 0.41 and a 95% confidence interval from 0.10 to 0.72.",
-        effectSize: "+0.41 SD",
-        effectLabel: "Large Effect",
-        tags: {
-          gradeLevel: ["Elementary School"],
-          subject: ["Mathematics"],
-          deliveryMode: ["Computer/Software"],
-          instructionalApproach: ["Self-Directed"],
-          country: ["United States"]
-        }
-      },
-      {
-        id: 36836450,
-        title: "Online Homework System with Step-by-Step Help",
-        study: "Roschelle, J., Shechtman, N., Tatar, D., Hegedus, S., Hopkins, B., Empson, S., ... & Gallagher, L. P. (2010). Integration of technology, curriculum, and professional development for advancing middle school mathematics: Three large-scale studies. American Educational Research Journal, 47(4), 833-878.",
-        studyLink: "https://doi.org/10.3102/0002831210367426",
-        description: "Students complete math homework online where they can request hints, see worked examples, and get help with problems they find difficult before submitting answers.",
-        whatItDoes: "This online homework system helps students learn math through guided practice. When students get stuck on a problem, they can request hints that provide increasingly detailed help. They can also view worked examples showing similar problems solved step-by-step. The system tracks which hints students use and adjusts future problems based on their needs, ensuring appropriate challenge and support.",
-        howItWasUsed: "Students completed regular math homework assignments through the online system throughout the school year. Assignments were given 3-4 times per week and typically took 20-30 minutes to complete. Students could work from home or school and had access to hints and examples whenever needed. Teachers monitored student progress through the system's reporting features.",
-        whoItWasTestedWith: "The study involved over 1,700 seventh grade students (approximately ages 12-13) from multiple middle schools in Massachusetts, United States. Schools varied in student demographics, technology resources, and levels of prior math achievement.",
-        whatWasMeasured: "Math learning was assessed using the Massachusetts state standardized test (MCAS) administered at the end of the school year. The test measured students' ability to solve problems across all seventh-grade math standards including number sense, algebra, geometry, and data analysis.",
-        howWellItWorked: "Students who completed homework using the online system with step-by-step help showed improved math achievement compared to students doing traditional paper homework. The effect was small but positive, with an estimated effect size of 0.15 and a 95% confidence interval from 0.01 to 0.29.",
-        effectSize: "+0.15 SD",
-        effectLabel: "Moderate Effect",
-        tags: {
-          gradeLevel: ["Middle School"],
-          subject: ["Mathematics"],
-          deliveryMode: ["Computer/Software"],
-          instructionalApproach: ["Self-Directed"],
-          country: ["United States"]
-        }
-      },
-      {
-        id: 36835453,
-        title: "Adaptive Reading-Math Software for Rural Schools",
-        study: "Hao, Y., Lee, K. S., Chen, S. T., & Sim, S. C. (2019). An evaluative study of a mobile application for middle school students struggling with English vocabulary learning. Computers in Human Behavior, 95, 208-216.",
-        studyLink: "https://doi.org/10.1016/j.chb.2018.10.022",
-        description: "Software that combines reading comprehension with math word problems, adapting to each student's reading and math levels to provide appropriately challenging content.",
-        whatItDoes: "This software integrates reading and math instruction by presenting math word problems that adapt to both students' reading comprehension and mathematical skill levels. The program automatically adjusts the complexity of the text and the difficulty of the math problems based on student performance. This dual adaptation helps students who struggle with either reading or math access appropriate content while building skills in both areas.",
-        howItWasUsed: "Students used the adaptive software for 30 minutes per session, twice per week over 18 weeks. Sessions took place in school computer labs during regular instructional time. Students worked independently through lessons that combined reading passages with embedded math problems, receiving immediate feedback on both comprehension and math accuracy.",
-        whoItWasTestedWith: "The study included 425 students in grades 3-5 (approximately ages 8-11) from rural schools in Malawi. Many students were learning in a second language and had limited access to educational resources outside school. The schools served predominantly low-income agricultural communities.",
-        whatWasMeasured: "Achievement was measured using assessments of both reading comprehension and mathematics problem-solving. Tests included grade-appropriate word problems requiring both reading understanding and mathematical computation. Separate reading and math scores were analyzed.",
-        howWellItWorked: "Students who used the adaptive reading-math software showed greater improvement in solving math word problems compared to students receiving standard instruction. The improvement was moderate, with an estimated effect size of 0.33 and a 95% confidence interval from 0.09 to 0.57.",
-        effectSize: "+0.33 SD",
-        effectLabel: "Moderate Effect",
-        tags: {
-          gradeLevel: ["Elementary School"],
-          subject: ["Mathematics"],
-          deliveryMode: ["Computer/Software"],
-          instructionalApproach: ["Adaptive/Personalized"],
-          country: ["Malawi"]
-        }
-      },
-      {
-        id: 36835752,
-        title: "Video Lessons with Embedded Practice Problems",
-        study: "Ran, H., Kim, N. J., & Secada, W. G. (2022). A meta-analysis on the effects of technology's functions and roles on students' mathematics achievement in K-12 classrooms. Journal of Computer Assisted Learning, 38(1), 258-284.",
-        studyLink: "https://doi.org/10.1111/jcal.12611",
-        description: "Students watch instructional videos that pause periodically to present practice problems, requiring students to solve problems before continuing with the lesson.",
-        whatItDoes: "This program delivers math instruction through videos where a teacher explains concepts and demonstrates problem-solving strategies. Videos automatically pause at key points and present practice problems that students must complete before continuing. This ensures students actively engage with content rather than passively watching. Students receive immediate feedback on practice problems and can replay video segments if needed.",
-        howItWasUsed: "Students watched video lessons with embedded practice as part of their regular math instruction throughout the school year. Lessons were accessed through school computers or tablets and typically lasted 15-20 minutes. Teachers assigned specific videos aligned with curriculum topics and monitored student progress through completion reports.",
-        whoItWasTestedWith: "The meta-analysis synthesized findings from multiple studies involving students in grades K-12 (ages 5-18) from schools in China, the United States, and other countries. Studies included diverse student populations from urban and rural settings with varying levels of technology access.",
-        whatWasMeasured: "Mathematics achievement was measured using various standardized tests, curriculum-based assessments, and researcher-developed measures depending on the specific study. Outcomes assessed conceptual understanding, procedural fluency, and problem-solving ability across different math topics.",
-        howWellItWorked: "Students who learned through video lessons with embedded practice problems showed improvement in mathematics achievement compared to students receiving traditional instruction. The effect was moderate, with an estimated effect size of 0.38 and a 95% confidence interval from 0.25 to 0.51.",
-        effectSize: "+0.38 SD",
-        effectLabel: "Moderate Effect",
-        tags: {
-          gradeLevel: ["Elementary School", "Middle School", "High School"],
-          subject: ["Mathematics"],
-          deliveryMode: ["Computer/Software"],
-          instructionalApproach: ["Self-Directed"],
-          country: ["China", "United States"]
-        }
-      },
-      {
-        id: 36836590,
-        title: "Intelligent Tutoring System for High School Geometry",
-        study: "Pane, J. F., Griffin, B. A., McCaffrey, D. F., & Karam, R. (2014). Effectiveness of Cognitive Tutor Algebra I at scale. Educational Evaluation and Policy Analysis, 36(2), 127-144.",
-        studyLink: "https://doi.org/10.3102/0162373713507480",
-        description: "An AI-powered tutoring system that monitors student thinking in real-time, identifies errors in reasoning, and provides targeted feedback as students work through geometry problems.",
-        whatItDoes: "This intelligent tutoring system acts like a personal math tutor by monitoring students' problem-solving steps in real-time and providing guidance exactly when needed. The AI analyzes student work, identifies specific misunderstandings or errors, and delivers customized feedback addressing those particular issues. Unlike simple right/wrong feedback, the system explains why reasoning is incorrect and guides students toward correct solution strategies.",
-        howItWasUsed: "Students used the intelligent tutoring system during regular geometry class, typically 2-3 times per week throughout the school year. Class time was restructured so students spent about 40% of time working with the software and 60% in teacher-led instruction and group work. Teachers circulated during computer time to provide additional support.",
-        whoItWasTestedWith: "The study involved 147 high school geometry students (approximately ages 14-16) from schools in Pennsylvania, United States. Students represented diverse achievement levels and backgrounds. The schools had adequate technology infrastructure to support regular computer-based instruction.",
-        whatWasMeasured: "Geometry learning was assessed using standardized achievement tests aligned with state geometry standards. Tests measured both procedural skills (solving geometry problems) and conceptual understanding (explaining geometric relationships and reasoning). Pre- and post-tests tracked growth over the academic year.",
-        howWellItWorked: "Students who used the intelligent tutoring system for geometry showed greater improvement compared to students receiving conventional geometry instruction. The improvement was moderate, with an estimated effect size of 0.32 and a 95% confidence interval from 0.01 to 0.63.",
-        effectSize: "+0.32 SD",
-        effectLabel: "Moderate Effect",
-        tags: {
-          gradeLevel: ["High School"],
-          subject: ["Mathematics"],
-          deliveryMode: ["Computer/Software"],
-          instructionalApproach: ["Adaptive/Personalized"],
-          country: ["United States"]
-        }
-      }
-    ];
+// Formats an APA citation so only the journal name is italicized.
+// Splits on (YYYY). to separate authors from the rest, then title from journal.
+function formatCitation(citation) {
+  const m = citation.match(/^(.*?\(\d{4}\)\. )(.*?\. )(.*)$/);
+  if (!m) return <span>{citation}</span>;
+  const authorsYear = m[1];
+  const articleTitle = m[2];
+  const remainder = m[3];
+  const commaIdx = remainder.indexOf(',');
+  if (commaIdx === -1) return <span>{authorsYear}{articleTitle}<em>{remainder}</em></span>;
+  const journalName = remainder.slice(0, commaIdx);
+  const rest = remainder.slice(commaIdx);
+  return <span>{authorsYear}{articleTitle}<em>{journalName}</em>{rest}</span>;
+}
 
-    function RemoteEdHub() {
-      const [currentPage, setCurrentPage] = useState('landing');
-      const [selectedIntervention, setSelectedIntervention] = useState(null);
-      const [searchTerm, setSearchTerm] = useState('');
-      const [selectedFilters, setSelectedFilters] = useState({
-        gradeLevel: [],
-        subject: [],
-        deliveryMode: [],
-        instructionalApproach: [],
-        country: []
-      });
+function App() {
+  const [currentPage, setCurrentPage] = useState('landing');
+  const [selectedIntervention, setSelectedIntervention] = useState(null);
+  const [activeTab, setActiveTab] = useState('studyDetails');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedFilters, setSelectedFilters] = useState({ gradeLevel:[], subject:[], deliveryMode:[], instructionalApproach:[], country:[] });
 
-      // Initialize icons whenever the page or selected intervention changes
-      useEffect(() => {
-        lucide.createIcons();
-      }, [currentPage, selectedIntervention]);
+  useEffect(() => { lucide.createIcons(); });
 
-      const toggleFilter = (category, value) => {
-        setSelectedFilters(prev => {
-          const currentFilters = prev[category];
-          const newFilters = currentFilters.includes(value)
-            ? currentFilters.filter(f => f !== value)
-            : [...currentFilters, value];
-          return { ...prev, [category]: newFilters };
-        });
-      };
+  const toggleFilter = (cat, val) => setSelectedFilters(prev => {
+    const cur = prev[cat];
+    return { ...prev, [cat]: cur.includes(val) ? cur.filter(f=>f!==val) : [...cur,val] };
+  });
+  const clearAllFilters = () => { setSelectedFilters({gradeLevel:[],subject:[],deliveryMode:[],instructionalApproach:[],country:[]}); setSearchTerm(''); };
+  const hasActiveFilters = () => Object.values(selectedFilters).some(a=>a.length>0) || searchTerm!=='';
 
-      const clearAllFilters = () => {
-        setSelectedFilters({
-          gradeLevel: [],
-          subject: [],
-          deliveryMode: [],
-          instructionalApproach: [],
-          country: []
-        });
-        setSearchTerm('');
-      };
+  const filtered = interventions.filter(i => {
+    const matchSearch = i.title.toLowerCase().includes(searchTerm.toLowerCase()) || i.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchFilters = Object.keys(selectedFilters).every(cat => {
+      const sel = selectedFilters[cat];
+      return sel.length===0 || sel.some(v => i.tags[cat].includes(v));
+    });
+    return matchSearch && matchFilters;
+  }).sort((a, b) => {
+    const aUS = a.tags.country.includes("United States");
+    const bUS = b.tags.country.includes("United States");
+    if (aUS && !bUS) return -1;
+    if (!aUS && bUS) return 1;
+    return 0;
+  });
 
-      const hasActiveFilters = () => {
-        return Object.values(selectedFilters).some(arr => arr.length > 0) || searchTerm !== '';
-      };
+  const allCountries = [...new Set(interventions.flatMap(i=>i.tags.country))].sort();
 
-      const filteredInterventions = interventions.filter(intervention => {
-        const matchesSearch = intervention.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          intervention.description.toLowerCase().includes(searchTerm.toLowerCase());
-        
-        const matchesFilters = Object.keys(selectedFilters).every(category => {
-          const selectedValues = selectedFilters[category];
-          if (selectedValues.length === 0) return true;
-          return selectedValues.some(value => intervention.tags[category].includes(value));
-        });
-
-        return matchesSearch && matchesFilters;
-      });
-
-      // Get unique countries for filter
-      const allCountries = [...new Set(interventions.flatMap(i => i.tags.country))].sort();
-
-      // Landing Page
-      if (currentPage === 'landing') {
-        return (
-          <div className="min-h-screen gradient-bg relative overflow-hidden flex items-center justify-center">
-            {/* Pattern overlay */}
-            <div className="absolute inset-0 pattern-overlay"></div>
-            
-            {/* Dark bottom gradient */}
-            <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/30 to-transparent"></div>
-            
-            {/* Decorative circles */}
-            <div className="absolute top-20 right-10 w-96 h-96 bg-emerald-300 opacity-10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-40 left-10 w-80 h-80 bg-teal-300 opacity-10 rounded-full blur-3xl"></div>
-            
-            <div className="max-w-5xl mx-auto px-6 text-center relative z-10 fade-in">
-              <h1 className="text-6xl md:text-7xl font-bold text-white mb-8 leading-tight drop-shadow-lg">
-                What Works in Standalone<br/>Digital Learning
-              </h1>
-              <p className="text-xl md:text-2xl text-white opacity-95 mb-12 drop-shadow max-w-3xl mx-auto">
-                Evidence from a meta-analysis on effective math and science programs
-              </p>
-              
-              {/* Buttons with Tooltips */}
-              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-6">
-                {/* Find What Works Button */}
-                <div className="relative group">
-                  <button
-                    onClick={() => {
-                      setSelectedIntervention(null);
-                      setCurrentPage('interventions');
-                    }}
-                    className="btn-hover px-10 py-5 bg-white text-emerald-700 rounded-xl hover:bg-opacity-90 transition-all font-bold text-xl shadow-2xl"
-                  >
-                    Find What Works →
-                  </button>
-                  
-                  {/* Tooltip */}
-                  <div className="absolute top-full mt-4 left-1/2 transform -translate-x-1/2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none">
-                    <div className="bg-white/95 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/50 relative overflow-hidden">
-                      {/* Abstract gradient background */}
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-200/30 to-teal-200/30 rounded-full blur-2xl"></div>
-                      <div className="relative">
-                        <h4 className="text-lg font-bold text-gray-900 mb-2">Find What Works</h4>
-                        <p className="text-gray-700 text-sm leading-relaxed">
-                          Explore evidence-based interventions from our meta-analysis. Browse 16 studies demonstrating positive effects on student achievement.
-                        </p>
-                      </div>
-                      {/* Arrow */}
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white/95"></div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Project Overview Button - NOW 2ND */}
-                <div className="relative group">
-                  <button
-                    onClick={() => {
-                      setSelectedIntervention(null);
-                      setCurrentPage('overview');
-                    }}
-                    className="btn-hover px-10 py-5 bg-transparent text-white border-2 border-white rounded-xl hover:bg-white hover:text-emerald-700 transition-all font-bold text-xl shadow-xl"
-                  >
-                    Project Overview
-                  </button>
-                  
-                  {/* Tooltip */}
-                  <div className="absolute top-full mt-4 left-1/2 transform -translate-x-1/2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none">
-                    <div className="bg-white/95 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/50 relative overflow-hidden">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-pink-200/30 rounded-full blur-2xl"></div>
-                      <div className="relative">
-                        <h4 className="text-lg font-bold text-gray-900 mb-2">Project Overview</h4>
-                        <p className="text-gray-700 text-sm leading-relaxed">
-                          Learn about the meta-analysis methodology, research gaps we address, and our approach to synthesizing RCT findings.
-                        </p>
-                      </div>
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white/95"></div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Resources Button - NOW 3RD */}
-                <div className="relative group">
-                  <button
-                    onClick={() => {
-                      setSelectedIntervention(null);
-                      setCurrentPage('resources');
-                    }}
-                    className="btn-hover px-10 py-5 bg-transparent text-white border-2 border-white rounded-xl hover:bg-white hover:text-emerald-700 transition-all font-bold text-xl shadow-xl"
-                  >
-                    Resources
-                  </button>
-                  
-                  {/* Tooltip */}
-                  <div className="absolute top-full mt-4 left-1/2 transform -translate-x-1/2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none">
-                    <div className="bg-white/95 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/50 relative overflow-hidden">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/30 to-cyan-200/30 rounded-full blur-2xl"></div>
-                      <div className="relative">
-                        <h4 className="text-lg font-bold text-gray-900 mb-2">Resources</h4>
-                        <p className="text-gray-700 text-sm leading-relaxed">
-                          Access the project brief, AI in meta-analysis preprint, open data and materials on OSF, and contact information.
-                        </p>
-                      </div>
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white/95"></div>
-                    </div>
-                  </div>
+  // LANDING
+  if (currentPage==='landing') return (
+    <div className="min-h-screen gradient-bg relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 pattern-overlay"></div>
+      <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/30 to-transparent"></div>
+      <div className="absolute top-20 right-10 w-96 h-96 bg-emerald-300 opacity-10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-40 left-10 w-80 h-80 bg-teal-300 opacity-10 rounded-full blur-3xl"></div>
+      <div className="max-w-5xl mx-auto px-6 text-center relative z-10 fade-in">
+        <h1 className="text-6xl md:text-7xl font-bold text-white mb-8 leading-tight drop-shadow-lg">What Works in Standalone<br/>Digital Learning</h1>
+        <p className="text-xl md:text-2xl text-white opacity-95 mb-12 drop-shadow max-w-3xl mx-auto">Evidence from a meta-analysis on effective math and science programs</p>
+        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-6">
+          {[
+            {label:"Find What Works →", page:"interventions", solid:true, tip:{title:"Find What Works",text:"Explore evidence-based interventions from our meta-analysis. Browse studies demonstrating positive effects on student achievement.",color:"from-emerald-200/30 to-teal-200/30"}},
+            {label:"Project Overview", page:"overview", solid:false, tip:{title:"Project Overview",text:"Learn about the meta-analysis methodology, research gaps we address, and our approach to synthesizing RCT findings.",color:"from-purple-200/30 to-pink-200/30"}},
+            {label:"Resources", page:"resources", solid:false, tip:{title:"Resources",text:"Access the project brief, AI in meta-analysis preprint, open data and materials on OSF, and contact information.",color:"from-blue-200/30 to-cyan-200/30"}}
+          ].map(btn => (
+            <div key={btn.page} className="relative group">
+              <button onClick={()=>setCurrentPage(btn.page)} className={`btn-hover px-10 py-5 rounded-xl font-bold text-xl shadow-xl transition-all ${btn.solid?'bg-white text-emerald-700 hover:bg-opacity-90 shadow-2xl':'bg-transparent text-white border-2 border-white hover:bg-white hover:text-emerald-700'}`}>{btn.label}</button>
+              <div className="absolute top-full mt-4 left-1/2 transform -translate-x-1/2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none">
+                <div className="bg-white/95 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/50 relative overflow-hidden">
+                  <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${btn.tip.color} rounded-full blur-2xl`}></div>
+                  <div className="relative"><h4 className="text-lg font-bold text-gray-900 mb-2">{btn.tip.title}</h4><p className="text-gray-700 text-sm leading-relaxed">{btn.tip.text}</p></div>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white/95"></div>
                 </div>
               </div>
-              
-              {/* Subtle hint */}
-              <p className="text-white/60 text-sm italic">Hover over buttons to learn more</p>
             </div>
+          ))}
+        </div>
+        <p className="text-white/60 text-sm italic">Hover over buttons to learn more</p>
+      </div>
+    </div>
+  );
+
+  // OVERVIEW
+  if (currentPage==='overview') return (
+    <div className="min-h-screen gradient-bg-subtle relative overflow-hidden">
+      <div className="absolute inset-0 pattern-overlay opacity-30"></div>
+      <div className="glass border-b border-white relative z-10">
+        <div className="max-w-6xl mx-auto px-6 py-8">
+          <button onClick={()=>setCurrentPage('landing')} className="text-emerald-700 hover:text-emerald-800 mb-4 flex items-center gap-2 transition-colors font-semibold">← Back to Home</button>
+          <h1 className="text-5xl font-bold text-gray-900 mb-2">Project Overview</h1>
+          <p className="text-xl text-gray-600">Understanding standalone digital learning in math and science</p>
+        </div>
+      </div>
+      <div className="max-w-4xl mx-auto px-6 py-12">
+        <div className="glass rounded-2xl p-10 shadow-xl mb-8 fade-in-scale">
+          <div className="space-y-8">
+            {[
+              {icon:"book-open",title:"Background",text:"Standalone digital learning programs—web-based tools and applications that students can use independently without extensive instructor guidance—have become increasingly important in PreK-12 education, particularly following the COVID-19 pandemic when school closures affected over 55 million U.S. students. While existing research shows promise for technology-enhanced instruction, prior reviews have been narrow in focus and have not systematically examined which program features, student characteristics, and implementation contexts lead to the best outcomes."},
+              {icon:"check-circle",title:"Objectives",text:"This meta-analysis synthesizes evidence from randomized controlled trials to answer three key questions: (1) What are the average effects of standalone digital learning programs on PreK-12 student achievement in math and science? (2) Do effects vary by program characteristics, such as delivery format, instructional approach, and personalization features? (3) Do effects vary by student and setting characteristics, including grade level, geographic region, and school context?"},
+              {icon:"file-text",title:"Methods",text:"We conducted a comprehensive systematic review and meta-analysis of 68 randomized controlled trials (147 effect sizes) published between 2007 and 2022. Studies were included if they evaluated standalone digital programs in math or science with PreK-12 students and reported quantitative achievement outcomes. We used robust variance estimation meta-regression to synthesize effect sizes and test moderators related to program design, implementation, and context. Our analysis revealed an overall moderate positive effect (g = 0.44), with substantial variation explained by factors such as delivery timing, instructional approach, personalization features, grade level, and country income level."}
+            ].map(s=>(
+              <div key={s.title}>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2"><i data-lucide={s.icon} className="w-6 h-6 text-emerald-600"></i>{s.title}</h2>
+                <p className="text-gray-700 text-lg leading-relaxed">{s.text}</p>
+              </div>
+            ))}
           </div>
-        );
-      }
-
-      // Project Overview Page
-      if (currentPage === 'overview') {
-        return (
-          <div className="min-h-screen gradient-bg-subtle relative overflow-hidden">
-            {/* Pattern overlay */}
-            <div className="absolute inset-0 pattern-overlay opacity-30"></div>
-            
-            <div className="glass border-b border-white relative z-10">
-              <div className="max-w-6xl mx-auto px-6 py-8">
-                <button
-                  onClick={() => setCurrentPage('landing')}
-                  className="text-emerald-700 hover:text-emerald-800 mb-4 flex items-center gap-2 transition-colors font-semibold"
-                >
-                  ← Back to Home
-                </button>
-                <h1 className="text-5xl font-bold text-gray-900 mb-2">Project Overview</h1>
-                <p className="text-xl text-gray-600">
-                  Understanding standalone digital learning in math and science
-                </p>
-              </div>
-            </div>
-
-            <div className="max-w-4xl mx-auto px-6 py-12">
-              <div className="glass rounded-2xl p-10 shadow-xl mb-8 fade-in-scale">
-                <div className="space-y-8">
-                  {/* Background Section */}
+        </div>
+        <div className="glass rounded-2xl p-10 shadow-xl mb-8 fade-in-scale">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2"><i data-lucide="users" className="w-6 h-6 text-emerald-600"></i>Project Leads</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {[{initials:"LM",name:"Dr. Laura Michaelson",role:"Principal Investigator",color:"emerald"},{initials:"QZ",name:"Dr. Qi Zhang",role:"Co-Principal Investigator",color:"teal"}].map(p=>(
+              <div key={p.initials} className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg p-6 border border-emerald-200">
+                <div className="flex items-start gap-3">
+                  <div className={`bg-${p.color}-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl flex-shrink-0`}>{p.initials}</div>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                      <i data-lucide="book-open" className="w-6 h-6 text-emerald-600"></i>
-                      Background
-                    </h2>
-                    <p className="text-gray-700 text-lg leading-relaxed">
-                      Standalone digital learning programs—web-based tools and applications that students can use independently without extensive instructor guidance—have become increasingly important in PreK-12 education, particularly following the COVID-19 pandemic when school closures affected over 55 million U.S. students. While existing research shows promise for technology-enhanced instruction, prior reviews have been narrow in focus and have not systematically examined which program features, student characteristics, and implementation contexts lead to the best outcomes.
-                    </p>
-                  </div>
-
-                  {/* Objectives Section */}
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                      <i data-lucide="check-circle" className="w-6 h-6 text-emerald-600"></i>
-                      Objectives
-                    </h2>
-                    <p className="text-gray-700 text-lg leading-relaxed">
-                      This meta-analysis synthesizes evidence from randomized controlled trials to answer three key questions: (1) What are the average effects of standalone digital learning programs on PreK-12 student achievement in math and science? (2) Do effects vary by program characteristics, such as delivery format, instructional approach, and personalization features? (3) Do effects vary by student and setting characteristics, including grade level, geographic region, and school context?
-                    </p>
-                  </div>
-
-                  {/* Methods Section */}
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                      <i data-lucide="file-text" className="w-6 h-6 text-emerald-600"></i>
-                      Methods
-                    </h2>
-                    <p className="text-gray-700 text-lg leading-relaxed">
-                      We conducted a comprehensive systematic review and meta-analysis of 68 randomized controlled trials (147 effect sizes) published between 2007 and 2022. Studies were included if they evaluated standalone digital programs in math or science with PreK-12 students and reported quantitative achievement outcomes. We used robust variance estimation meta-regression to synthesize effect sizes and test moderators related to program design, implementation, and context. Our analysis revealed an overall moderate positive effect (g = 0.44), with substantial variation explained by factors such as delivery timing, instructional approach, personalization features, grade level, and country income level.
-                    </p>
+                    <h3 className="font-bold text-gray-900 text-lg">{p.name}</h3>
+                    <p className={`text-${p.color}-700 font-semibold`}>{p.role}</p>
+                    <p className="text-gray-500 text-sm mt-0.5">American Institutes for Research</p>
                   </div>
                 </div>
               </div>
-
-              {/* Project Leads Section */}
-              <div className="glass rounded-2xl p-10 shadow-xl mb-8 fade-in-scale">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <i data-lucide="users" className="w-6 h-6 text-emerald-600"></i>
-                  Project Leads
-                </h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  {/* Principal Investigator */}
-                  <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg p-6 border border-emerald-200">
-                    <div className="flex items-start gap-3">
-                      <div className="bg-emerald-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl flex-shrink-0">
-                        LM
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-gray-900 text-lg">Dr. Laura Michaelson</h3>
-                        <p className="text-emerald-700 font-semibold">Principal Investigator</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Co-Principal Investigator */}
-                  <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg p-6 border border-emerald-200">
-                    <div className="flex items-start gap-3">
-                      <div className="bg-teal-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl flex-shrink-0">
-                        QZ
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-gray-900 text-lg">Dr. Qi Zhang</h3>
-                        <p className="text-teal-700 font-semibold">Co-Principal Investigator</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* NSF Funding Acknowledgment */}
-              <div className="glass rounded-2xl p-10 shadow-xl fade-in-scale">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <i data-lucide="info" className="w-6 h-6 text-emerald-600"></i>
-                  Funding & Acknowledgment
-                </h2>
-                <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-                  <p className="text-gray-700 text-lg leading-relaxed">
-                    This project is supported by the National Science Foundation under Grant No. 2200883. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the National Science Foundation.
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
-        );
-      }
-
-      // Resources Page
-      if (currentPage === 'resources') {
-        return (
-          <div className="min-h-screen gradient-bg-subtle relative overflow-hidden">
-            {/* Pattern overlay */}
-            <div className="absolute inset-0 pattern-overlay opacity-30"></div>
-            
-            <div className="glass border-b border-white relative z-10">
-              <div className="max-w-6xl mx-auto px-6 py-8 relative z-10">
-                <button
-                  onClick={() => setCurrentPage('landing')}
-                  className="text-emerald-700 hover:text-emerald-800 mb-4 flex items-center gap-2 transition-colors font-semibold"
-                >
-                  ← Back to Home
-                </button>
-                <h1 className="text-4xl font-bold text-gray-900 mb-2">Resources</h1>
-                <p className="text-lg text-gray-600">
-                  Access research materials, data, and learn more about the project
-                </p>
-              </div>
-            </div>
-
-            <div className="max-w-6xl mx-auto px-6 py-12 relative z-10">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200 hover:shadow-md transition-shadow">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                    <i data-lucide="file-text" className="w-6 h-6 text-blue-600"></i>
-                    Project Brief
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    Read our comprehensive project brief summarizing the meta-analysis methodology, findings, and implications for practice.
-                  </p>
-                  <button className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2">
-                    Download Brief
-                    <i data-lucide="external-link" className="w-4 h-4"></i>
-                  </button>
-                </div>
-
-                <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200 hover:shadow-md transition-shadow">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                    <i data-lucide="cpu" className="w-6 h-6 text-purple-600"></i>
-                    AI in Meta-Analysis
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    Explore our preprint on using artificial intelligence to screen and code studies in systematic reviews and meta-analyses.
-                  </p>
-                  <a 
-                    href="https://osf.io/preprints/edarxiv/wu64b_v1"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-purple-600 hover:text-purple-700 font-medium flex items-center gap-2"
-                  >
-                    Read Preprint
-                    <i data-lucide="external-link" className="w-4 h-4"></i>
-                  </a>
-                </div>
-
-                <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200 hover:shadow-md transition-shadow">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                    <i data-lucide="database" className="w-6 h-6 text-blue-600"></i>
-                    Open Science Framework
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    Access our open-source data, analysis code, study protocols, and supplementary materials on OSF.
-                  </p>
-                  <a 
-                    href="https://osf.io/hf94y/overview"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2"
-                  >
-                    Visit OSF
-                    <i data-lucide="external-link" className="w-4 h-4"></i>
-                  </a>
-                </div>
-
-                <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200 hover:shadow-md transition-shadow">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                    <i data-lucide="mail" className="w-6 h-6 text-blue-600"></i>
-                    Contact Us
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    Have questions about the research or want to learn more? Reach out to our team.
-                  </p>
-                  <a 
-                    href="mailto:qzhang@air.org"
-                    className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2"
-                  >
-                    Email Us
-                    <i data-lucide="external-link" className="w-4 h-4"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
+        </div>
+        <div className="glass rounded-2xl p-10 shadow-xl fade-in-scale">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2"><i data-lucide="info" className="w-6 h-6 text-emerald-600"></i>Funding &amp; Acknowledgment</h2>
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+            <p className="text-gray-700 text-lg leading-relaxed">This project is supported by the National Science Foundation under Grant No. 2200883. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the National Science Foundation.</p>
           </div>
-        );
-      }
+        </div>
+      </div>
+    </div>
+  );
 
-      // Individual Intervention Detail Page
-      if (selectedIntervention && currentPage === 'interventions') {
-        const intervention = interventions.find(i => i.id === selectedIntervention);
-        return (
-          <div className="min-h-screen gradient-bg-interventions relative overflow-hidden">
-            <div className="absolute inset-0 pattern-overlay opacity-50"></div>
-
-            {/* Header */}
-            <div className="relative z-10 border-b border-white/20 bg-black/10 backdrop-blur-sm">
-              <div className="max-w-4xl mx-auto px-6 py-8">
-                <div className="text-center mb-6">
-                  <div className="flex justify-center gap-6 mb-6">
-                    <button
-                      onClick={() => {
-                        setSelectedIntervention(null);
-                        setCurrentPage('landing');
-                      }}
-                      className="text-white/80 hover:text-white transition-colors font-semibold"
-                    >
-                      Home
-                    </button>
-                    <button
-                      onClick={() => {
-                        setSelectedIntervention(null);
-                        setCurrentPage('overview');
-                      }}
-                      className="text-white/80 hover:text-white transition-colors font-semibold"
-                    >
-                      Project Overview
-                    </button>
-                    <button
-                      onClick={() => {
-                        setSelectedIntervention(null);
-                        setCurrentPage('resources');
-                      }}
-                      className="text-white/80 hover:text-white transition-colors font-semibold"
-                    >
-                      Resources
-                    </button>
-                  </div>
-                  
-                  <h1 className="text-5xl font-bold text-white mb-3 drop-shadow-lg">Find What Works</h1>
-                  <p className="text-xl text-white/90 drop-shadow">Explore evidence-based interventions</p>
-                </div>
-              </div>
+  // RESOURCES
+  if (currentPage==='resources') return (
+    <div className="min-h-screen gradient-bg-subtle relative overflow-hidden">
+      <div className="absolute inset-0 pattern-overlay opacity-30"></div>
+      <div className="glass border-b border-white relative z-10">
+        <div className="max-w-6xl mx-auto px-6 py-8">
+          <button onClick={()=>setCurrentPage('landing')} className="text-emerald-700 hover:text-emerald-800 mb-4 flex items-center gap-2 transition-colors font-semibold">← Back to Home</button>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Resources</h1>
+          <p className="text-lg text-gray-600">Access research materials, data, and learn more about the project</p>
+        </div>
+      </div>
+      <div className="max-w-6xl mx-auto px-6 py-12 relative z-10">
+        <div className="grid md:grid-cols-2 gap-6">
+          {[
+            {icon:"file-text",color:"blue",title:"Project Brief",desc:"Read our comprehensive project brief summarizing the meta-analysis methodology, findings, and implications for practice.",linkText:"Download Brief",href:null},
+            {icon:"cpu",color:"purple",title:"AI in Meta-Analysis",desc:"Explore our preprint on using artificial intelligence to screen and code studies in systematic reviews and meta-analyses.",linkText:"Read Preprint",href:"https://osf.io/preprints/edarxiv/wu64b_v1"},
+            {icon:"database",color:"blue",title:"Open Science Framework",desc:"Access our open-source data, analysis code, study protocols, and supplementary materials on OSF.",linkText:"Visit OSF",href:"https://osf.io/hf94y/overview"},
+            {icon:"mail",color:"blue",title:"Contact Us",desc:"Have questions about the research or want to learn more? Reach out to our team.",linkText:"Email Us",href:"mailto:qzhang@air.org"}
+          ].map(r=>(
+            <div key={r.title} className="bg-white rounded-lg shadow-sm p-6 border border-gray-200 hover:shadow-md transition-shadow">
+              <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2"><i data-lucide={r.icon} className={`w-6 h-6 text-${r.color}-600`}></i>{r.title}</h3>
+              <p className="text-gray-600 mb-4">{r.desc}</p>
+              {r.href ? <a href={r.href} target="_blank" rel="noopener noreferrer" className={`text-${r.color}-600 hover:text-${r.color}-700 font-medium flex items-center gap-2`}>{r.linkText}<i data-lucide="external-link" className="w-4 h-4"></i></a>
+                : <button className={`text-${r.color}-600 hover:text-${r.color}-700 font-medium flex items-center gap-2`}>{r.linkText}<i data-lucide="external-link" className="w-4 h-4"></i></button>}
             </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 
-            <div className="max-w-4xl mx-auto px-6 py-8 relative z-10">
-              <button
-                onClick={() => setSelectedIntervention(null)}
-                className="text-white hover:text-white/90 mb-6 flex items-center gap-2 transition-colors font-semibold bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg backdrop-blur-sm"
-              >
-                ← Back to interventions
-              </button>
-              
-              <div className="glass rounded-2xl shadow-2xl p-10">
-                <div className="mb-6">
-                  <h1 className="text-4xl font-bold text-gray-900 mb-6">{intervention.title}</h1>
-                  <div className="flex items-center gap-2 mb-6">
-                    <div className="px-6 py-3 rounded-xl font-bold flex items-center gap-3 shadow-xl text-white bg-gradient-to-r from-green-400 to-emerald-500">
-                      <i data-lucide="trending-up" className="w-6 h-6"></i>
-                      {intervention.effectSize}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-8">
-                  <div>
-                    <h2 className="text-xl font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                      <i data-lucide="file-text" className="w-5 h-5 text-blue-600"></i>
-                      {intervention.id === 36836013 ? 'What the approach does' : 'What the program does'}
-                    </h2>
-                    <p className="text-gray-700 leading-relaxed">{intervention.whatItDoes}</p>
-                  </div>
-
-                  <div className="bg-blue-50 rounded-lg p-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                      <i data-lucide="book-open" className="w-5 h-5 text-blue-600"></i>
-                      How it was used
-                    </h2>
-                    <p className="text-gray-700 leading-relaxed">{intervention.howItWasUsed}</p>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="bg-gray-50 rounded-lg p-6">
-                      <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                        <i data-lucide="users" className="w-5 h-5 text-blue-600"></i>
-                        Who it was tested with
-                      </h3>
-                      <p className="text-gray-700">{intervention.whoItWasTestedWith}</p>
-                    </div>
-
-                    <div className="bg-gray-50 rounded-lg p-6">
-                      <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                        <i data-lucide="graduation-cap" className="w-5 h-5 text-blue-600"></i>
-                        What was measured
-                      </h3>
-                      <p className="text-gray-700">{intervention.whatWasMeasured}</p>
-                    </div>
-                  </div>
-
-                  <div className={`rounded-lg p-6 ${
-                    intervention.effectLabel === 'Large Effect'
-                      ? 'bg-green-50'
-                      : 'bg-blue-50'
-                  }`}>
-                    <h2 className={`text-xl font-semibold text-gray-900 mb-3 flex items-center gap-2`}>
-                      <i data-lucide="trending-up" className={`w-5 h-5 ${
-                        intervention.effectLabel === 'Large Effect'
-                          ? 'text-green-600'
-                          : 'text-blue-600'
-                      }`}></i>
-                      How well it worked
-                    </h2>
-                    <p className="text-gray-700 leading-relaxed">{intervention.howWellItWorked}</p>
-                  </div>
-
-                  <div className="border-t pt-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                      <i data-lucide="external-link" className="w-5 h-5 text-blue-600"></i>
-                      Study Citation
-                    </h2>
-                    <p className="text-gray-700 mb-3">{intervention.study}</p>
-                    <a 
-                      href={intervention.studyLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2"
-                    >
-                      View Study
-                      <i data-lucide="external-link" className="w-4 h-4"></i>
-                    </a>
-                  </div>
-                </div>
+  // STUDY DETAIL PAGE
+  if (selectedIntervention && currentPage==='interventions') {
+    const iv = interventions.find(i=>i.id===selectedIntervention);
+    return (
+      <div className="min-h-screen gradient-bg-interventions relative overflow-hidden">
+        <div className="absolute inset-0 pattern-overlay opacity-50"></div>
+        <div className="relative z-10 border-b border-white/20 bg-black/10 backdrop-blur-sm">
+          <div className="max-w-4xl mx-auto px-6 py-8">
+            <div className="text-center mb-6">
+              <div className="flex justify-center gap-6 mb-6">
+                {[["Home","landing"],["Project Overview","overview"],["Resources","resources"]].map(([lbl,pg])=>(
+                  <button key={pg} onClick={()=>{setSelectedIntervention(null);setCurrentPage(pg);}} className="text-white/80 hover:text-white transition-colors font-semibold">{lbl}</button>
+                ))}
               </div>
-            </div>
-          </div>
-        );
-      }
-
-      // Interventions Listing Page with SIDEBAR LAYOUT
-      return (
-        <div className="min-h-screen gradient-bg-interventions relative overflow-hidden">
-          {/* Pattern overlay */}
-          <div className="absolute inset-0 pattern-overlay opacity-50"></div>
-          
-          {/* Header */}
-          <div className="relative z-10 border-b border-white/20 bg-black/10 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto px-6 py-8">
-              <div className="mb-6">
-                <button
-                  onClick={() => {
-                    setSelectedIntervention(null);
-                    setCurrentPage('landing');
-                  }}
-                  className="text-white hover:text-white/90 flex items-center gap-2 transition-colors font-semibold bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg backdrop-blur-sm"
-                >
-                  ← Back to Home
-                </button>
-              </div>
-              <div className="text-center">
-                <h1 className="text-5xl font-bold text-white mb-3 drop-shadow-lg">Find What Works</h1>
-                <p className="text-xl text-white/90 drop-shadow">Explore evidence-based interventions</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Introduction Section */}
-          <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
-            <div className="glass-tinted rounded-2xl p-6 mb-6 border border-white/30">
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                  <i data-lucide="info" className="w-7 h-7 text-white"></i>
-                </div>
-                <div className="flex-1">
-                  <p className="text-white text-lg leading-relaxed">
-                    This collection features <strong>16 randomized experiments</strong> showing <strong>positive impacts on student learning</strong> in math and science. The interventions span multiple <strong>grade levels</strong>, <strong>countries</strong>, <strong>delivery methods</strong>, and <strong>instructional approaches</strong>. Filter to find what interests you.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* TWO COLUMN LAYOUT: SIDEBAR + CARDS */}
-          <div className="max-w-7xl mx-auto px-6 pb-12 relative z-10">
-            <div className="flex gap-6">
-              
-              {/* LEFT SIDEBAR */}
-              <div className="w-80 flex-shrink-0 space-y-6">
-                
-                {/* Search Box */}
-                <div className="glass rounded-2xl p-5 shadow-xl">
-                  <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wider mb-3">Search</h3>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      placeholder="Search interventions..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full px-4 py-3 bg-white/80 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 placeholder-gray-500"
-                    />
-                    <i data-lucide="search" className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
-                  </div>
-                </div>
-
-                {/* Filters Box */}
-                <div className="glass rounded-2xl p-5 shadow-xl max-h-[600px] overflow-y-auto custom-scrollbar">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wider">Filters</h3>
-                    {hasActiveFilters() && (
-                      <button 
-                        onClick={clearAllFilters}
-                        className="text-xs text-emerald-700 hover:text-emerald-800 font-semibold"
-                      >
-                        Clear All
-                      </button>
-                    )}
-                  </div>
-                  
-                  <div className="space-y-5">
-                    {/* Grade Level */}
-                    <div>
-                      <p className="text-sm font-semibold text-gray-700 mb-2">Grade Level</p>
-                      <div className="space-y-2">
-                        {['Elementary School', 'Middle School', 'High School'].map(grade => (
-                          <label key={grade} className="flex items-center gap-2 cursor-pointer group">
-                            <input 
-                              type="checkbox" 
-                              checked={selectedFilters.gradeLevel.includes(grade)}
-                              onChange={() => toggleFilter('gradeLevel', grade)}
-                              className="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500" 
-                            />
-                            <span className="text-sm text-gray-700 group-hover:text-gray-900">{grade}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="border-t border-gray-200 pt-4"></div>
-
-                    {/* Subject */}
-                    <div>
-                      <p className="text-sm font-semibold text-gray-700 mb-2">Subject</p>
-                      <div className="space-y-2">
-                        {['Mathematics', 'Science'].map(subject => (
-                          <label key={subject} className="flex items-center gap-2 cursor-pointer group">
-                            <input 
-                              type="checkbox"
-                              checked={selectedFilters.subject.includes(subject)}
-                              onChange={() => toggleFilter('subject', subject)}
-                              className="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500" 
-                            />
-                            <span className="text-sm text-gray-700 group-hover:text-gray-900">{subject}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="border-t border-gray-200 pt-4"></div>
-
-                    {/* Delivery Mode */}
-                    <div>
-                      <p className="text-sm font-semibold text-gray-700 mb-2">Delivery Mode</p>
-                      <div className="space-y-2">
-                        {['Computer/Software', 'Game-Based', 'Live Instruction', 'Blended'].map(mode => (
-                          <label key={mode} className="flex items-center gap-2 cursor-pointer group">
-                            <input 
-                              type="checkbox"
-                              checked={selectedFilters.deliveryMode.includes(mode)}
-                              onChange={() => toggleFilter('deliveryMode', mode)}
-                              className="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500" 
-                            />
-                            <span className="text-sm text-gray-700 group-hover:text-gray-900">{mode}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="border-t border-gray-200 pt-4"></div>
-
-                    {/* Instructional Approach */}
-                    <div>
-                      <p className="text-sm font-semibold text-gray-700 mb-2">Instructional Approach</p>
-                      <div className="space-y-2">
-                        {['Adaptive/Personalized', 'Teacher-Supported', 'Self-Directed'].map(approach => (
-                          <label key={approach} className="flex items-center gap-2 cursor-pointer group">
-                            <input 
-                              type="checkbox"
-                              checked={selectedFilters.instructionalApproach.includes(approach)}
-                              onChange={() => toggleFilter('instructionalApproach', approach)}
-                              className="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500" 
-                            />
-                            <span className="text-sm text-gray-700 group-hover:text-gray-900">{approach}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="border-t border-gray-200 pt-4"></div>
-
-                    {/* Country Filter */}
-                    <div>
-                      <p className="text-sm font-semibold text-gray-700 mb-2">Country</p>
-                      <div className="space-y-2">
-                        {allCountries.map(country => (
-                          <label key={country} className="flex items-center gap-2 cursor-pointer group">
-                            <input 
-                              type="checkbox"
-                              checked={selectedFilters.country.includes(country)}
-                              onChange={() => toggleFilter('country', country)}
-                              className="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500" 
-                            />
-                            <span className="text-sm text-gray-700 group-hover:text-gray-900">{country}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Results count */}
-                <div className="text-center">
-                  <p className="text-white/90 text-sm font-semibold drop-shadow">
-                    Showing <strong className="text-white text-lg">{filteredInterventions.length}</strong> of {interventions.length} interventions
-                  </p>
-                </div>
-              </div>
-
-              {/* RIGHT SIDE: Intervention Cards */}
-              <div className="flex-1 space-y-6">
-                {filteredInterventions.length === 0 ? (
-                  <div className="glass rounded-2xl p-12 text-center">
-                    <i data-lucide="search-x" className="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
-                    <p className="text-gray-700 text-lg font-medium mb-2">No interventions found</p>
-                    <p className="text-gray-600">Try adjusting your filters or search term</p>
-                  </div>
-                ) : (
-                  filteredInterventions.map(intervention => (
-                    <div
-                      key={intervention.id}
-                      className="glass rounded-2xl shadow-xl hover:shadow-2xl card-hover cursor-pointer border border-white/50"
-                      onClick={() => setSelectedIntervention(intervention.id)}
-                    >
-                      <div className="p-8">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-3">{intervention.title}</h3>
-                        <p className="text-gray-700 mb-4 text-lg leading-relaxed">{intervention.description}</p>
-                        
-                        {/* Tags */}
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {intervention.tags.gradeLevel.map(tag => (
-                            <span key={tag} className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
-                              {tag}
-                            </span>
-                          ))}
-                          {intervention.tags.subject.map(tag => (
-                            <span key={tag} className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
-                              {tag}
-                            </span>
-                          ))}
-                          {intervention.tags.country.map(tag => (
-                            <span key={tag} className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-medium">
-                              {tag}
-                            </span>
-                          ))}
-                          {intervention.tags.deliveryMode.map(tag => (
-                            <span key={tag} className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                        
-                        {/* Effect Size Badge */}
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold shadow-lg text-white bg-gradient-to-r from-green-400 to-emerald-500">
-                          <i data-lucide="trending-up" className="w-5 h-5"></i>
-                          {intervention.effectSize}
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                )}
-              </div>
+              <h1 className="text-5xl font-bold text-white mb-3 drop-shadow-lg">Find What Works</h1>
+              <p className="text-xl text-white/90 drop-shadow">Explore evidence-based interventions</p>
             </div>
           </div>
         </div>
-      );
-    }
+        <div className="max-w-4xl mx-auto px-6 py-8 relative z-10">
+          <button onClick={()=>{setSelectedIntervention(null);setActiveTab('studyDetails');}} className="text-white hover:text-white/90 mb-6 flex items-center gap-2 transition-colors font-semibold bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg backdrop-blur-sm">← Back to interventions</button>
+          <div className="glass rounded-2xl shadow-2xl overflow-hidden">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 px-8 py-6 text-white">
+              <h1 className="text-3xl font-bold mb-3">{iv.title}</h1>
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold bg-white/20 backdrop-blur"><i data-lucide="trending-up" className="w-5 h-5"></i><span>{iv.effectSize}</span></div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold bg-white/15 backdrop-blur text-sm"><i data-lucide="map-pin" className="w-4 h-4"></i><span>{iv.country}</span></div>
+              </div>
+            </div>
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<RemoteEdHub />);
-  </script>
+            {/* TABS */}
+            <div className="px-8 py-4 bg-gray-50 border-b border-gray-200">
+              <div className="flex gap-3 flex-wrap">
+                <button className={`tab-btn ${activeTab==='studyDetails'?'tab-study-active':'tab-study-inactive'}`} onClick={()=>setActiveTab('studyDetails')}>
+                  <i data-lucide="file-text" className="w-4 h-4"></i>Study Details
+                </button>
+                <button className={`tab-btn ${activeTab==='educatorInsights'?'tab-insights-active':'tab-insights-inactive'}`} onClick={()=>setActiveTab('educatorInsights')}>
+                  <i data-lucide="lightbulb" className="w-4 h-4"></i>Educator Insights
+                </button>
+              </div>
+            </div>
+
+            {/* TAB CONTENT */}
+            <div className="px-8 py-6">
+              {activeTab==='studyDetails' && (
+                <div className="tab-content-anim space-y-6">
+                  <div className="bg-gray-50 rounded-lg p-6"><div className="flex items-start gap-3 mb-3"><i data-lucide="file-text" className="w-5 h-5 text-blue-600 mt-1"></i><h3 className="text-lg font-bold text-gray-900">What the program does</h3></div><p className="text-gray-700 leading-relaxed">{iv.whatItDoes}</p></div>
+                  <div className="bg-blue-50 rounded-lg p-6"><div className="flex items-start gap-3 mb-3"><i data-lucide="book-open" className="w-5 h-5 text-blue-600 mt-1"></i><h3 className="text-lg font-bold text-gray-900">How it was used</h3></div><p className="text-gray-700 leading-relaxed">{iv.howItWasUsed}</p></div>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-gray-50 rounded-lg p-6"><div className="flex items-start gap-3 mb-3"><i data-lucide="users" className="w-5 h-5 text-blue-600 mt-1"></i><h3 className="text-lg font-bold text-gray-900">Who it was tested with</h3></div><p className="text-gray-700 leading-relaxed">{iv.whoItWasTestedWith}</p></div>
+                    <div className="bg-gray-50 rounded-lg p-6"><div className="flex items-start gap-3 mb-3"><i data-lucide="target" className="w-5 h-5 text-blue-600 mt-1"></i><h3 className="text-lg font-bold text-gray-900">What was measured</h3></div><p className="text-gray-700 leading-relaxed">{iv.whatWasMeasured}</p></div>
+                  </div>
+                  <div className="bg-green-50 rounded-lg p-6"><div className="flex items-start gap-3 mb-3"><i data-lucide="trending-up" className="w-5 h-5 text-green-600 mt-1"></i><h3 className="text-lg font-bold text-gray-900">How well it worked</h3></div><p className="text-gray-700 leading-relaxed">{iv.howWellItWorked}</p></div>
+                  {iv.studyNote && (
+                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-6"><div className="flex items-start gap-3 mb-2"><i data-lucide="alert-circle" className="w-5 h-5 text-amber-600 mt-1"></i><h3 className="text-lg font-bold text-gray-900">Study note</h3></div><p className="text-gray-700 leading-relaxed">{iv.studyNote}</p></div>
+                  )}
+                  <div className="border-t border-gray-200 pt-6">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">Study Citation</h3>
+                    <p className="text-gray-700 mb-3">{formatCitation(iv.study)}</p>
+                    <a href={iv.studyLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2">View Study <i data-lucide="external-link" className="w-4 h-4"></i></a>
+                  </div>
+                </div>
+              )}
+
+              {activeTab==='educatorInsights' && (
+                <div className="tab-content-anim">
+                  <div className="border-2 border-yellow-400 rounded-2xl bg-yellow-50 p-6">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="bg-gradient-to-br from-yellow-400 to-orange-400 rounded-xl p-3 shadow-lg"><i data-lucide="lightbulb" className="w-6 h-6 text-white"></i></div>
+                      <h2 className="text-2xl font-bold text-gray-900">Quick Takeaway for Educators</h2>
+                    </div>
+                    <div className="space-y-4">
+                      {[
+                        {key:"evidence",label:"THE EVIDENCE",val:iv.educatorInsights.evidence,bg:"bg-white",border:"border-yellow-200"},
+                        {key:"imp",label:"IMPLEMENTATION SWEET SPOT",val:iv.educatorInsights.implementationSweetSpot,bg:"bg-white",border:"border-yellow-200"},
+                        {key:"why",label:"WHY THIS MATTERS",val:iv.educatorInsights.whyItMatters,bg:"bg-white",border:"border-yellow-200"},
+                        {key:"prac",label:"PRACTICAL ADVANTAGE",val:iv.educatorInsights.practicalAdvantage,bg:"bg-white",border:"border-yellow-200"},
+                      ].map(s=>(
+                        <div key={s.key} className={`${s.bg} rounded-lg p-5 border ${s.border}`}>
+                          <h3 className="text-sm font-bold text-yellow-900 uppercase tracking-wide mb-2" style={{fontFamily:"'Source Sans 3',sans-serif"}}>{s.label}</h3>
+                          <p className="text-gray-800 leading-relaxed">{s.val}</p>
+                        </div>
+                      ))}
+                      <div className="bg-yellow-100 rounded-lg p-5 border border-yellow-300">
+                        <div className="flex items-start gap-2.5">
+                          <i data-lucide="alert-circle" className="w-5 h-5 text-yellow-800 flex-shrink-0 mt-0.5"></i>
+                          <div>
+                            <h3 className="text-sm font-bold text-yellow-900 uppercase tracking-wide mb-1" style={{fontFamily:"'Source Sans 3',sans-serif"}}>CONSIDERATION</h3>
+                            <p className="text-gray-800 leading-relaxed">{iv.educatorInsights.consideration}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // INTERVENTIONS LIST
+  return (
+    <div className="min-h-screen gradient-bg-interventions relative overflow-hidden">
+      <div className="absolute inset-0 pattern-overlay opacity-50"></div>
+      <div className="relative z-10 border-b border-white/20 bg-black/10 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="mb-6"><button onClick={()=>setCurrentPage('landing')} className="text-white hover:text-white/90 flex items-center gap-2 transition-colors font-semibold bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg backdrop-blur-sm">← Back to Home</button></div>
+          <div className="text-center"><h1 className="text-5xl font-bold text-white mb-3 drop-shadow-lg">Find What Works</h1><p className="text-xl text-white/90 drop-shadow">Explore evidence-based interventions</p></div>
+        </div>
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
+        <div className="glass-tinted rounded-2xl p-6 mb-6 border border-white/30">
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center"><i data-lucide="info" className="w-7 h-7 text-white"></i></div>
+            <p className="text-white text-lg leading-relaxed">This collection features <strong>{interventions.length} randomized experiments</strong> showing <strong>positive impacts on student learning</strong> in math and science. The interventions span multiple <strong>grade levels</strong>, <strong>countries</strong>, <strong>delivery methods</strong>, and <strong>instructional approaches</strong>. Filter to find what interests you.</p>
+          </div>
+        </div>
+      </div>
+      <div className="max-w-7xl mx-auto px-6 pb-12 relative z-10">
+        <div className="flex gap-6">
+          {/* Sidebar */}
+          <div className="w-80 flex-shrink-0 space-y-6">
+            <div className="glass rounded-2xl p-5 shadow-xl">
+              <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wider mb-3">Search</h3>
+              <div className="relative">
+                <input type="text" placeholder="Search interventions..." value={searchTerm} onChange={e=>setSearchTerm(e.target.value)} className="w-full px-4 py-3 bg-white/80 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 placeholder-gray-500"/>
+                <i data-lucide="search" className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+              </div>
+            </div>
+            <div className="glass rounded-2xl p-5 shadow-xl max-h-[600px] overflow-y-auto custom-scrollbar">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wider">Filters</h3>
+                {hasActiveFilters() && <button onClick={clearAllFilters} className="text-xs text-emerald-700 hover:text-emerald-800 font-semibold">Clear All</button>}
+              </div>
+              <div className="space-y-5">
+                {[
+                  {label:"Grade Level",key:"gradeLevel",options:["Elementary School","Middle School","High School"]},
+                  {label:"Subject",key:"subject",options:["Mathematics","Science"]},
+                  {label:"Delivery Mode",key:"deliveryMode",options:["Computer/Software","Game-Based","Live Instruction","Blended"]},
+                  {label:"Instructional Approach",key:"instructionalApproach",options:["Adaptive/Personalized","Teacher-Supported","Self-Directed"]}
+                ].map((f,fi)=>(
+                  <div key={f.key}>
+                    {fi>0 && <div className="border-t border-gray-200 pt-4 -mt-1"></div>}
+                    <p className="text-sm font-semibold text-gray-700 mb-2">{f.label}</p>
+                    <div className="space-y-2">{f.options.map(opt=>(
+                      <label key={opt} className="flex items-center gap-2 cursor-pointer group">
+                        <input type="checkbox" checked={selectedFilters[f.key].includes(opt)} onChange={()=>toggleFilter(f.key,opt)} className="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"/>
+                        <span className="text-sm text-gray-700 group-hover:text-gray-900">{opt}</span>
+                      </label>
+                    ))}</div>
+                  </div>
+                ))}
+                <div className="border-t border-gray-200 pt-4"></div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-700 mb-2">Country</p>
+                  <div className="space-y-2">{allCountries.map(c=>(
+                    <label key={c} className="flex items-center gap-2 cursor-pointer group">
+                      <input type="checkbox" checked={selectedFilters.country.includes(c)} onChange={()=>toggleFilter('country',c)} className="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"/>
+                      <span className="text-sm text-gray-700 group-hover:text-gray-900">{c}</span>
+                    </label>
+                  ))}</div>
+                </div>
+              </div>
+            </div>
+            <div className="text-center"><p className="text-white/90 text-sm font-semibold drop-shadow">Showing <strong className="text-white text-lg">{filtered.length}</strong> of {interventions.length} interventions</p></div>
+          </div>
+
+          {/* Cards */}
+          <div className="flex-1 space-y-6">
+            {filtered.length===0 ? (
+              <div className="glass rounded-2xl p-12 text-center"><i data-lucide="search-x" className="w-16 h-16 text-gray-400 mx-auto mb-4"></i><p className="text-gray-700 text-lg font-medium mb-2">No interventions found</p><p className="text-gray-600">Try adjusting your filters or search term</p></div>
+            ) : filtered.map(iv=>(
+              <div key={iv.id} className="glass rounded-2xl shadow-xl hover:shadow-2xl card-hover cursor-pointer border border-white/50" onClick={()=>{setSelectedIntervention(iv.id);setActiveTab('studyDetails');}}>
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{iv.title}</h3>
+                  <p className="text-gray-700 mb-4 text-lg leading-relaxed">{iv.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {iv.tags.gradeLevel.map(t=><span key={t} className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">{t}</span>)}
+                    {iv.tags.subject.map(t=><span key={t} className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">{t}</span>)}
+                    {iv.tags.country.map(t=><span key={t} className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-medium">{t}</span>)}
+                    {iv.tags.deliveryMode.map(t=><span key={t} className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">{t}</span>)}
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold shadow-lg text-white bg-gradient-to-r from-green-400 to-emerald-500">
+                    <i data-lucide="trending-up" className="w-5 h-5"></i>{iv.effectSize}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App/>);
+</script>
 </body>
 </html>
