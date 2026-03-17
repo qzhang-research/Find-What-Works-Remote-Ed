@@ -657,6 +657,7 @@ function App() {
 
   // INTERVENTIONS LIST
   return (
+    <>
     <div className="min-h-screen gradient-bg-interventions relative overflow-hidden">
       <div className="absolute inset-0 pattern-overlay opacity-50"></div>
       <div className="relative z-10 border-b border-white/20 bg-black/10 backdrop-blur-sm">
@@ -749,7 +750,6 @@ function App() {
       </div>
     </div>
 
-      {/* Effect Size Info Modal */}
       {showEffectInfo && (
         <div className="effect-modal-overlay" onClick={()=>setShowEffectInfo(false)}>
           <div className="effect-modal" onClick={e=>e.stopPropagation()}>
@@ -769,6 +769,7 @@ function App() {
           </div>
         </div>
       )}
+    </>
   );
 }
 
