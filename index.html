@@ -49,8 +49,8 @@
     /* Effect size modal */
     .effect-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px}
     .effect-modal{background:#1f2937;color:white;border-radius:16px;padding:28px 32px;max-width:420px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,0.5);position:relative}
-    .info-btn{background:rgba(255,255,255,0.2);border:none;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background 0.2s;color:white;font-size:13px;font-weight:700;line-height:1;padding:0}
-    .info-btn:hover{background:rgba(255,255,255,0.35)}
+    .info-btn{background:transparent;border:none;border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:opacity 0.2s;color:white;padding:0;opacity:0.75}
+    .info-btn:hover{opacity:1}
     .info-btn-green{background:rgba(0,0,0,0.12);color:#065f46}
     .info-btn-green:hover{background:rgba(0,0,0,0.2)}
   </style>
@@ -577,7 +577,7 @@ function App() {
             <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 px-8 py-6 text-white">
               <h1 className="text-3xl font-bold mb-3">{iv.title}</h1>
               <div className="flex flex-wrap items-center gap-3">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold bg-white/20 backdrop-blur"><i data-lucide="trending-up" className="w-5 h-5"></i><span>{iv.effectSize}</span><button className="info-btn" onClick={e=>{e.stopPropagation();setShowEffectInfo(true)}} title="What is effect size?">i</button></div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold bg-white/20 backdrop-blur"><i data-lucide="trending-up" className="w-5 h-5"></i><span>{iv.effectSize}</span><button className="info-btn" onClick={e=>{e.stopPropagation();setShowEffectInfo(true)}} title="What is effect size?"><i data-lucide="info" style={{width:"15px",height:"15px",strokeWidth:2.5}}></i></button></div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold bg-white/15 backdrop-blur text-sm"><i data-lucide="map-pin" className="w-4 h-4"></i><span>{iv.country}</span></div>
               </div>
             </div>
@@ -670,7 +670,7 @@ function App() {
         <div className="glass-tinted rounded-2xl p-6 mb-6 border border-white/30">
           <div className="flex items-start gap-4">
             <div className="flex-shrink-0 w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center"><i data-lucide="info" className="w-7 h-7 text-white"></i></div>
-            <p className="text-white text-lg leading-relaxed">This collection features <strong>{interventions.length} randomized experiments</strong> showing <strong>positive impacts on student learning</strong> in math and science. The interventions span multiple <strong>grade levels</strong>, <strong>countries</strong>, <strong>delivery methods</strong>, and <strong>instructional approaches</strong>. Filter to find what interests you.</p>
+            <p className="text-white text-lg leading-relaxed">This collection features <strong>14 curated randomized experiments</strong> showing <strong>positive impacts on student learning</strong> in math and science. The interventions span multiple <strong>grade levels</strong>, <strong>countries</strong>, <strong>delivery methods</strong>, and <strong>instructional approaches</strong>. Filter to find what interests you.</p>
           </div>
         </div>
       </div>
@@ -740,7 +740,7 @@ function App() {
                   </div>
                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold shadow-lg text-white bg-gradient-to-r from-green-400 to-emerald-500">
                     <i data-lucide="trending-up" className="w-5 h-5"></i>{iv.effectSize}
-                    <button className="info-btn" onClick={e=>{e.stopPropagation();setShowEffectInfo(true)}} title="What is effect size?">i</button>
+                    <button className="info-btn" onClick={e=>{e.stopPropagation();setShowEffectInfo(true)}} title="What is effect size?"><i data-lucide="info" style={{width:"15px",height:"15px",strokeWidth:2.5}}></i></button>
                   </div>
                 </div>
               </div>
